@@ -1,0 +1,18 @@
+<ion-view view-title="Action" has-header="true">
+    <ion-content class="padding" scroll='false'>
+        <div  style="position: absolute;width: 91%;padding: 15px;margin: 0px auto;height: 100%;top: 48px;">
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <i class="icon ion-ios-compose-outline placeholder-icon twColor font23"></i>
+                    <input type="text" placeholder="Title" name="email" class="twColor" ng-model='home.title' ng-blur="home.done()">
+                </label>
+            </div>
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <i class="icon ion-ios-grid-view-outline placeholder-icon twColor font23"></i>
+                    <input type="text" placeholder="Hashtag" ng-model="home.hash" class="twColor" ng-blur="home.done()">
+                </label>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

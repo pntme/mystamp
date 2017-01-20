@@ -1,0 +1,25 @@
+<ion-view view-title="Action" has-header="true" class="has-header">
+ <ion-content>
+     <div class="list card">
+        <div class="item item-image">
+    <img src="{{image}}" width="389px;" style="border: 3px solid lightgray;">
+  </div>
+</div>
+<form name="twForm">
+<div style="    height: 15px;
+    margin-left: 16px;">
+<p style="color:red;" ng-show="twForm.tw.$invalid">Tweet should not exceed then 140 character</p>  
+</div>
+          <div class="list">
+              <label class="item item-input">
+                  <textarea type="text" ng-model="view.textOverlay" placeholder="Type your tweet here" style="background:transparent;" class="twColor" name="tw" ng-maxlength="140"></textarea>
+              </label>
+          </div>
+          <div class="row">
+              <button ng-click="tweet()" class="button button-full button-positive" ng-disabled="twForm.tw.$invalid">
+                  Tweet
+              </button>
+          </div>
+        </form>  
+      </ion-content> <canvas id="tempCanvas"></canvas> 
+ </ion-view>     

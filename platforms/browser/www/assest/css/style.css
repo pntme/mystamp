@@ -1,0 +1,98 @@
+/* Empty. Add your own CSS if you like */
+.logo{
+    text-align: center;
+    color: #666161;
+    margin-top: 33px !important;
+    font-weight: bold;
+}
+.list label{
+	    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+#centeringDiv{
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+#mainForm{
+     margin: auto;
+    width: 100%;
+    margin-top: 143px;
+}
+.twColor{
+	color: rgba(0,132,180,.8) !important;
+}
+.twBackground{
+	background-color: rgba(0,132,180,.8) !important;
+}
+.loginButton {
+	    position: absolute;
+    width: 100%;
+    bottom: -9px;
+}
+.white{
+	color: #fff;
+}
+.button:hover{
+	color: #fff;
+}
+.font23{
+font-size: 23px;
+}
+
+.title{
+  text-align: left !important;
+}
+.homeButton {
+      background: #e2e5e8;
+    border: 1px solid  rgba(0,132,180,.8);
+    border-radius: 29px;
+    color:   rgba(0,132,180,.8);
+    margin-top: 67px !important;
+}
+.homeButton:hover{
+  color:  rgba(0,132,180,.8);
+}
+ion-content{
+      background: #e2e5e8;
+}
+.item{
+  background-color: #e2e5e8;
+  border-color: rgba(0,132,180,.8);
+}
+
+.transparent {
+  background: transparent !important;
+}
+.image-modal {
+  width: 100% !important;
+  height: 100%;
+  top: 0 !important;
+  left: 0 !important;
+}
+.fullscreen-image {
+  max-width: 76%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+/* Fix modal backdrop for smaller devices */
+@media (max-width: 679px) {
+  .active .modal-backdrop-bg {
+    opacity: .5;
+  }
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
+  }
+}
