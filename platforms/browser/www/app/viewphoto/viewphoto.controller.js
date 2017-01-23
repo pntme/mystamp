@@ -6,20 +6,15 @@
         var self = this;
         var fileName;
         if ($stateParams.id) {
-            var data = localStorageService.get('Storage');
-            for (var i = 0; i < data.length; i++) {
-                if ($stateParams.id == data[i].id) {
-                    $scope.image = "http://truecvs.com/tw/images/" + data[i].img;
-                    self.textOverlay = data[i].tweet;
-                }
-            }
+            var selected = db.GetDataById($stateParams.id);
+            $scope.image = selected.image;
+            self.textOverlay = selected.tweet;
         } else {
             $scope.image = "data:image/jpeg;base64," + Image1.binary;
             var canvas = document.getElementById('tempCanvas');
             var context = canvas.getContext('2d');
             createOverlay();
         }
-
         $ionicLoading.hide();
 
         function createOverlay() {
@@ -40,16 +35,17 @@
             context.shadowBlur = 20;
             context.shadowOffsetX = 15;
             context.shadowOffsetY = 15;
-            context.fillText(localStorageService.get('setting').hash, canvas.width - 20, canvas.height - 10);
+            context.fillText(localStorageService.get('setting').hash, canvas.width - 20, canvas.height - 35);
             var imgURI = canvas.toDataURL();
             $timeout(function() {
-                $scope.image = imgURI ;
+                $scope.image = imgURI;
                 imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
                 var blob = Image1.baseUpload(imgURI);
-                var name =  new Date().valueOf() + '.png';
-                $cordovaFile.writeFile(cordova.file.externalDataDirectory, name , blob, true)
+                console.log(blob)
+                var name = new Date().valueOf() + '.png';
+                $cordovaFile.writeFile(cordova.file.externalDataDirectory, name, blob, true)
                     .then(function(success) {
-                      fileName = cordova.file.externalDataDirectory+name;
+                        fileName = cordova.file.externalDataDirectory + name;
                     }, function(error) {
                         alert("Error 403, Insufficient permissions")
                     });
@@ -57,11 +53,12 @@
         }
 
         $scope.tweet = function() {
-          var tweetData = localStorageService.get('setting');
+            var tweetData = localStorageService.get('setting');
             if ($stateParams.id) {
                 OpenTwitter();
             } else {
                 db.InsertDb(tweetData.title, self.textOverlay, fileName);
+                OpenTwitter();
             }
 
         }

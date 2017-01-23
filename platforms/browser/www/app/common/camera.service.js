@@ -33,7 +33,7 @@
               return buf;
           };
           image.baseUpload = function(imageBase64) {
-              var name =  new Date().valueOf() + '.png';
+              var name = new Date().valueOf() + '.png';
               var binary = image.fixBinary(atob(imageBase64));
               var blob = new Blob([binary], { type: 'image/png', name: name });
               blob.name = name;
@@ -71,24 +71,57 @@
 
           image.takePhoto1 = function(title) {
               var q = $q.defer();
-              var options = {
-                  quality: 75,
-                  destinationType: Camera.DestinationType.DATA_URL,
-                  sourceType: Camera.PictureSourceType.CAMERA,
-                  allowEdit: true,
-                  encodingType: Camera.EncodingType.JPEG,
-                  targetWidth: 100,
-                  targetHeight: 100,
-                  popoverOptions: CameraPopoverOptions,
-                  saveToPhotoAlbum: false
-              }
-              image.takePhoto(1).then(function(blob) {
-                  q.resolve(blob);
-              }, function(err) {
-                  $ionicLoading.hide();
-                  q.reject(err);
+              var hideSheet = $ionicActionSheet.show({
+                  buttons: [{
+                      text: '<p class="text-center"><i class="ion-images"></i> Gallery</p>'
+                  }, {
+                      text: '<p class="text-center"><i class="ion-camera"></i> Camera</p>'
+                  }],
+                  titleText: title,
+                  cancelText: 'Cancel',
+                  cancel: function() {},
+                  buttonClicked: function(index) {
+                      $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+                      var options = {
+                          quality: 75,
+                          destinationType: Camera.DestinationType.DATA_URL,
+                          sourceType: Camera.PictureSourceType.CAMERA,
+                          allowEdit: true,
+                          encodingType: Camera.EncodingType.JPEG,
+                          targetWidth: 300,
+                          targetHeight: 300,
+                          popoverOptions: CameraPopoverOptions,
+                          saveToPhotoAlbum: false
+                      };
+
+                      image.takePhoto(index).then(function(blob) {
+                          q.resolve(blob);
+                      }, function(err) {
+                          q.reject(err);
+                      });
+                      return true;
+                  }
               });
               return q.promise;
+              // var q = $q.defer();
+              // var options = {
+              //     quality: 75,
+              //     destinationType: Camera.DestinationType.DATA_URL,
+              //     sourceType: Camera.PictureSourceType.CAMERA,
+              //     allowEdit: true,
+              //     encodingType: Camera.EncodingType.JPEG,
+              //     targetWidth: 100,
+              //     targetHeight: 100,
+              //     popoverOptions: CameraPopoverOptions,
+              //     saveToPhotoAlbum: false
+              // }
+              // image.takePhoto(1).then(function(blob) {
+              //     q.resolve(blob);
+              // }, function(err) {
+              //     $ionicLoading.hide();
+              //     q.reject(err);
+              // });
+              // return q.promise;
           };
 
           image.saveTOdb = function() {

@@ -6,9 +6,9 @@
         var self = this;
         var fileName;
         if ($stateParams.id) {
-            var selected=db.GetDataById($stateParams.id);
-             $scope.image = selected.image;
-             self.textOverlay = selected.tweet;
+            var selected = db.GetDataById($stateParams.id);
+            $scope.image = selected.image;
+            self.textOverlay = selected.tweet;
         } else {
             $scope.image = "data:image/jpeg;base64," + Image1.binary;
             var canvas = document.getElementById('tempCanvas');
@@ -16,6 +16,7 @@
             createOverlay();
         }
         $ionicLoading.hide();
+
         function createOverlay() {
             var source = new Image();
             source.src = $scope.image;
@@ -23,23 +24,25 @@
             canvas.height = source.height;
             console.log(canvas);
             context.drawImage(source, 0, 0);
-            context.font = "100px impact";
+            context.font = "30px impact";
             var textWidth = context.measureText($scope.frase).width;
             if (textWidth > canvas.offsetWidth) {
                 context.font = "30px impact";
             }
             context.textAlign = 'right';
             context.fillStyle = 'white';
-            context.shadowColor = 'red';
+            context.shadowColor = '#00000';
             context.shadowBlur = 20;
             context.shadowOffsetX = 15;
             context.shadowOffsetY = 15;
+            context.opacity = 0.34;
             context.fillText(localStorageService.get('setting').hash, canvas.width - 20, canvas.height - 35);
             var imgURI = canvas.toDataURL();
             $timeout(function() {
                 $scope.image = imgURI;
                 imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
                 var blob = Image1.baseUpload(imgURI);
+                console.log(blob)
                 var name = new Date().valueOf() + '.png';
                 $cordovaFile.writeFile(cordova.file.externalDataDirectory, name, blob, true)
                     .then(function(success) {

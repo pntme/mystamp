@@ -11,7 +11,6 @@ function homeCtrl(localStorageService, db, $localStorage, $state, tost, $scope, 
     }
 
 	self.done = function(){
-		console.log('k')
 		// db.InsertDb('hii', 'hello');
 		localStorageService.set('setting', {
 			hash: self.hash,

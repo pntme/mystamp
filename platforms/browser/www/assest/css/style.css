@@ -1,98 +1,166 @@
 /* Empty. Add your own CSS if you like */
-.logo{
+
+
+
+.logo {
     text-align: center;
     color: #666161;
     margin-top: 33px !important;
     font-weight: bold;
 }
-.list label{
-	    border-top: none;
+
+.list label {
+    border-top: none;
     border-left: none;
     border-right: none;
 }
-#centeringDiv{
-  height: 100%;
-  width: 100%;
-  display: flex;
+
+#centeringDiv {
+    height: 100%;
+    width: 100%;
+    display: flex;
 }
 
-#mainForm{
-     margin: auto;
+#mainForm {
+    margin: auto;
     width: 100%;
     margin-top: 143px;
 }
-.twColor{
-	color: rgba(0,132,180,.8) !important;
+
+.twColor {
+    color: #fff !important;
 }
-.twBackground{
-	background-color: rgba(0,132,180,.8) !important;
+
+.twBackground {
+    background-color: rgb(41, 113, 158) !important;
 }
+
 .loginButton {
-	    position: absolute;
+    position: absolute;
     width: 100%;
     bottom: -9px;
 }
-.white{
-	color: #fff;
-}
-.button:hover{
-	color: #fff;
-}
-.font23{
-font-size: 23px;
+
+.white {
+    color: #fff;
 }
 
-.title{
-  text-align: left !important;
+.button:hover {
+    color: #fff;
 }
+
+.font23 {
+    font-size: 23px;
+}
+
+.title {
+    text-align: left !important;
+}
+
 .homeButton {
-      background: #e2e5e8;
-    border: 1px solid  rgba(0,132,180,.8);
+    background: #e2e5e8;
+    border: 1px solid rgba(0, 132, 180, .8);
     border-radius: 29px;
-    color:   rgba(0,132,180,.8);
+    color: rgba(0, 132, 180, .8);
     margin-top: 67px !important;
 }
-.homeButton:hover{
-  color:  rgba(0,132,180,.8);
+
+.homeButton:hover {
+    color: rgba(0, 132, 180, .8);
 }
-ion-content{
-      background: #e2e5e8;
+
+ion-content {
+       background: url(../img/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-.item{
-  background-color: #e2e5e8;
-  border-color: rgba(0,132,180,.8);
+
+.item-content {
+    background: #e2e5e8 !important;
+}
+
+.item {
+    background-color: transparent !important;
+    border-color: #fff;
 }
 
 .transparent {
-  background: transparent !important;
-}
-.image-modal {
-  width: 100% !important;
-  height: 100%;
-  top: 0 !important;
-  left: 0 !important;
-}
-.fullscreen-image {
-  max-width: 76%;
-  max-height: 100%;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  overflow: auto;
-  position: fixed;
-  right: 0;
-  top: 0;
+    background: transparent !important;
 }
 
+.image-modal {
+    width: 100% !important;
+    height: 100%;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.fullscreen-image {
+    max-width: 76%;
+    max-height: 100%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+
 /* Fix modal backdrop for smaller devices */
+
 @media (max-width: 679px) {
-  .active .modal-backdrop-bg {
-    opacity: .5;
-  }
-  .modal-backdrop-bg {
-    -webkit-transition: opacity 300ms ease-in-out;
-    transition: opacity 300ms ease-in-out;
-    background-color: #000;
-    opacity: 0;
-  }
+    .active .modal-backdrop-bg {
+        opacity: .5;
+    }
+    .modal-backdrop-bg {
+        -webkit-transition: opacity 300ms ease-in-out;
+        transition: opacity 300ms ease-in-out;
+        background-color: #000;
+        opacity: 0;
+    }
+}
+
+.loading-container .loading {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #86888a;
+    color: #fff;
+    text-align: center;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+
+.spinner {
+    stroke: #0c60ee;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Sofia';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Sofia'), local('Sofia-Regular'), url(f2JBzUtFBEg-kZNlFQ7f-Q.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+.card, .list-inset {
+    overflow: hidden;
+    margin: 20px 10px;
+    border-radius: 2px;
+    background-color: transparent;
+}
+
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.activated {
+    border-color: #a0a0a0 !important;
+    color: rgb(41, 113, 158) !important;
+}
+
+
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated {
+    color: rgb(41, 113, 158) ;
+}
+.action-sheet-group .button:first-child:last-child {
+    border-width: 0;
+    color: red;
 }

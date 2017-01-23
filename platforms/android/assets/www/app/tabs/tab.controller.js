@@ -7,7 +7,6 @@
         self.capture = function() {
             var setting = localStorageService.get('setting');
             if (setting && setting.title && setting.hash) {
-                $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
                 Image1.takePhoto1().then(function(res) {
                     $state.go('viewphoto');
                 });

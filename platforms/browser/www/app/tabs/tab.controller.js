@@ -6,14 +6,12 @@
         var self = this;
         self.capture = function() {
             var setting = localStorageService.get('setting');
-            if (setting && setting.title) {
-                $ionicLoading.show({ template: 'Adding Hashtag' });
+            if (setting && setting.title && setting.hash) {
                 Image1.takePhoto1().then(function(res) {
-                    console.log(res)
                     $state.go('viewphoto');
                 });
             } else {
-                tost.notify('Title should not be left empty', 'top');
+                tost.notify('Title and Hashtag should not be left empty', 'top');
             }
             $scope.go = function() {
                 $state.go('tab.dash')

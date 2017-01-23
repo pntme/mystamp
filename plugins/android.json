@@ -8,45 +8,48 @@
     },
     "installed_plugins": {
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-x-socialsharing": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-plugin-x-toast": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "cordova-sqlite-storage": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "com.hashify.pr"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         }
     }
 }
