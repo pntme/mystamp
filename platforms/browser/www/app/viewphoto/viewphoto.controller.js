@@ -31,7 +31,7 @@
             }
             context.textAlign = 'right';
             context.fillStyle = 'white';
-            context.shadowColor = 'red';
+            context.shadowColor = 'black';
             context.shadowBlur = 20;
             context.shadowOffsetX = 15;
             context.shadowOffsetY = 15;

@@ -2,20 +2,43 @@
     'use strict';
     angular.module('hash').controller('viewPhotoCtrl', viewPhotoCtrl);
 
-    function viewPhotoCtrl(localStorageService, db, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading) {
+    function viewPhotoCtrl(localStorageService, db, $ionicModal, Gallery, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading) {
         var self = this;
         var fileName;
+        $scope.zoomMin = 1;
         if ($stateParams.id) {
             var selected = db.GetDataById($stateParams.id);
             $scope.image = selected.image;
             self.textOverlay = selected.tweet;
         } else {
-            $scope.image = "data:image/jpeg;base64," + Image1.binary;
-            var canvas = document.getElementById('tempCanvas');
-            var context = canvas.getContext('2d');
-            createOverlay();
+            if (Gallery.pics) {
+                $scope.MulImage = Gallery.pics;
+            } else {
+                $scope.image = "data:image/jpeg;base64," + Image1.binary;
+                var canvas = document.getElementById('tempCanvas');
+                var context = canvas.getContext('2d');
+                createOverlay();
+            }
         }
         $ionicLoading.hide();
+
+
+        // $scope.MulImage = [
+        //     'assest/img/a.jpg' ,
+        //     'assest/img/b.jpg',
+        //     'assest/img/c.jpg'
+        // ];
+
+
+
+
+
+
+
+
+
+
+
 
         function createOverlay() {
             var source = new Image();
@@ -24,18 +47,17 @@
             canvas.height = source.height;
             console.log(canvas);
             context.drawImage(source, 0, 0);
-            context.font = "30px impact";
+            context.font = "100px impact";
             var textWidth = context.measureText($scope.frase).width;
             if (textWidth > canvas.offsetWidth) {
                 context.font = "30px impact";
             }
             context.textAlign = 'right';
             context.fillStyle = 'white';
-            context.shadowColor = '#00000';
+            context.shadowColor = 'black    ';
             context.shadowBlur = 20;
             context.shadowOffsetX = 15;
             context.shadowOffsetY = 15;
-            context.opacity = 0.34;
             context.fillText(localStorageService.get('setting').hash, canvas.width - 20, canvas.height - 35);
             var imgURI = canvas.toDataURL();
             $timeout(function() {
@@ -75,5 +97,25 @@
 
                 });
         }
+
+        $scope.showImages = function(index, pic) {
+            $scope.activeSlide = index;
+            $scope.selctedImage = pic;
+            $scope.showModal('app/viewphoto/zoom.html');
+        };
+
+        $scope.showModal = function(templateUrl) {
+            $ionicModal.fromTemplateUrl(templateUrl, {
+                scope: $scope
+            }).then(function(modal) {
+                $scope.modal = modal;
+                $scope.modal.show();
+            });
+        }
+
+        $scope.closeModal = function() {
+            $scope.modal.hide();
+            $scope.modal.remove()
+        };
     }
 })();

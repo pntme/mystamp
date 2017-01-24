@@ -44,7 +44,7 @@
             "PACKAGE_NAME": "com.ionicframework.hashify805552"
         },
         "cordova-plugin-image-picker": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
+            "PACKAGE_NAME": "com.hashify.pr"
         }
     },
     "dependent_plugins": {

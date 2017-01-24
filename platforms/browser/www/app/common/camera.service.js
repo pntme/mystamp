@@ -1,9 +1,9 @@
   (function() {
       'use strict';
       angular.module('hash')
-          .service('Image1', ['$ionicHistory', '$timeout', '$cordovaFile', '$state', '$rootScope', '$q', '$ionicActionSheet', 'localStorageService', '$ionicLoading', imageUpload])
+          .service('Image1', ['$ionicHistory', '$timeout', '$cordovaImagePicker', '$cordovaFile', '$state', '$rootScope', '$q', '$ionicActionSheet', 'localStorageService', '$ionicLoading', imageUpload])
 
-      function imageUpload($ionicHistory, $state, $timeout, $cordovaFile, $rootScope, $q, $ionicActionSheet, localStorageService, $ionicLoading) {
+      function imageUpload($ionicHistory, $state, $timeout, $cordovaImagePicker, $cordovaFile, $rootScope, $q, $ionicActionSheet, localStorageService, $ionicLoading) {
           var image = {};
           image.finalBlob = '';
           image.upload = function(file, api) {
@@ -82,23 +82,46 @@
                   cancel: function() {},
                   buttonClicked: function(index) {
                       $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
-                      var options = {
-                          quality: 75,
-                          destinationType: Camera.DestinationType.DATA_URL,
-                          sourceType: Camera.PictureSourceType.CAMERA,
-                          allowEdit: true,
-                          encodingType: Camera.EncodingType.JPEG,
-                          targetWidth: 300,
-                          targetHeight: 300,
-                          popoverOptions: CameraPopoverOptions,
-                          saveToPhotoAlbum: false
-                      };
+                      console.log(index)
+                      if (index == 0) {
+                          var options = {
+                              maximumImagesCount: 10,
+                              width: 800,
+                              height: 800,
+                              quality: 80
+                          };
+                          $cordovaImagePicker.getPictures(options).then(function(results) {
+                                  for (var i = 0; i < results.length; i++) {
+                                      console.log('Image URI: ' + results[i]);
+                                      $scope.images.push(results[i]);
+                                  }
+                                  if (!$scope.$$phase) {
+                                      $scope.$apply();
+                                  }
+                              }, function(error) {
+                                  // error getting photos
+                              });
 
-                      image.takePhoto(index).then(function(blob) {
-                          q.resolve(blob);
-                      }, function(err) {
-                          q.reject(err);
-                      });
+
+                      } else {
+                          var options = {
+                              quality: 75,
+                              destinationType: Camera.DestinationType.DATA_URL,
+                              sourceType: Camera.PictureSourceType.CAMERA,
+                              allowEdit: true,
+                              encodingType: Camera.EncodingType.JPEG,
+                              targetWidth: 300,
+                              targetHeight: 300,
+                              popoverOptions: CameraPopoverOptions,
+                              saveToPhotoAlbum: false
+                          };
+
+                          image.takePhoto(index).then(function(blob) {
+                              q.resolve(blob);
+                          }, function(err) {
+                              q.reject(err);
+                          });
+                      }
                       return true;
                   }
               });
