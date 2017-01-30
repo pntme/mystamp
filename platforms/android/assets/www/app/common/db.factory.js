@@ -7,6 +7,7 @@
         var db;
         var self = this;
         f.CreateDb = function() {
+            var defer = $q.defer();
             db = null;
             db = window.sqlitePlugin.openDatabase({ name: 'history.db', location: 'default' });
             db.transaction(function(tx) {
@@ -16,6 +17,8 @@
             }, function() {
                 console.log('Populated database OK');
             });
+
+            return defer.promise;
         }
 
         f.InsertDb = function(title, tweet, image) {
@@ -64,7 +67,7 @@
 
         f.deleteData = function(data) {
             db.executeSql('DELETE FROM records WHERE date = ?', [data], function(rs) {
-              console.log(rs)
+                console.log(rs)
             }, function(error) {
                 console.log('SELECT SQL statement ERROR: ' + error.message);
 

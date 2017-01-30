@@ -113,5 +113,23 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-instagram-plugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vstirbu/InstagramPlugin",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.verso.cordova.clipboard": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/VersoSolutions/CordovaClipboard.git",
+            "subdir": "."
+        },
+        "is_top_level": false,
+        "variables": {}
     }
 }

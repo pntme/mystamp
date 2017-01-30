@@ -1,7 +1,5 @@
 /* Empty. Add your own CSS if you like */
 
-
-
 .logo {
     text-align: center;
     color: #666161;
@@ -21,6 +19,22 @@
     display: flex;
 }
 
+
+/*.relief {
+  background-color: #3a50d9;
+  color: #e0eff2;
+  text-shadow: -4px 3px 0 #3a50d9, -14px 7px 0 #0a0e27;
+}
+*/
+
+.Preview {
+    border: none;
+    position: absolute;
+    right: 13px;
+    /*text-decoration: underline;*/
+    font-weight: bold;
+}
+
 #mainForm {
     margin: auto;
     width: 100%;
@@ -31,9 +45,15 @@
     color: #fff !important;
 }
 
+i{
+    color: rgb(41, 113, 158) !important;
+}
+
+
 .twBackground {
     background-color: rgb(41, 113, 158) !important;
 }
+
 
 .loginButton {
     position: absolute;
@@ -70,7 +90,7 @@
 }
 
 ion-content {
-       background: url(../img/bg.png);
+    /* background: url(../img/bg.png);*/
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -81,7 +101,7 @@ ion-content {
 
 .item {
     background-color: transparent !important;
-    border-color: #fff;
+    /*  border-color: #fff;*/
 }
 
 .transparent {
@@ -136,30 +156,38 @@ ion-content {
     stroke: #0c60ee;
 }
 
+
 /* latin */
+
 @font-face {
-  font-family: 'Sofia';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Sofia'), local('Sofia-Regular'), url(f2JBzUtFBEg-kZNlFQ7f-Q.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+    font-family: 'Sofia';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Sofia'), local('Sofia-Regular'), url(f2JBzUtFBEg-kZNlFQ7f-Q.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
-.card, .list-inset {
+
+.card,
+.list-inset {
     overflow: hidden;
     margin: 20px 10px;
     border-radius: 2px;
     background-color: transparent;
 }
 
-ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.activated {
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.tab-item-active,
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.active,
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.activated {
     border-color: #a0a0a0 !important;
     color: rgb(41, 113, 158) !important;
 }
 
-
-ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated {
-    color: rgb(41, 113, 158) ;
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active,
+ion-tabs.tabs-color-active-positive .tab-item.active,
+ion-tabs.tabs-color-active-positive .tab-item.activated {
+    color: rgb(41, 113, 158);
 }
+
 .action-sheet-group .button:first-child:last-child {
     border-width: 0;
     color: red;
@@ -170,31 +198,75 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-col
     margin: 8px;
     height: 234px;
 }
- 
+
 .image-modal {
     width: 100% !important;
     height: 100%;
     top: 0 !important;
     left: 0 !important;
 }
-.img-responsive{
+
+.img-responsive {
     width: 100%;
     height: auto;
 }
- 
+
 .transparent {
-  background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
 }
- 
+
 .slider {
     width: 100%;
     height: 100%;
 }
- 
+
 .image {
     width: 100%;
     height: 600px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center, center;
+}
+
+.loading span {
+    vertical-align: super;
+}
+
+.action-sheet .button.destructive {
+    color: green;
+}
+
+.action-sheet .button.destructive:hover {
+    color: green;
+}
+
+.green {
+    color: green;
+}
+
+.m-t-43 {
+    margin-top: 43px;
+}
+
+.title-left,
+.title-right,
+.title.title-left,
+.title.title-right {
+    left: 3px;
+}
+
+.list a.item {
+    border: 1px solid #eadfdf;
+}
+
+.list div.item {
+    border: 1px solid #eadfdf;
+}
+
+.list li.item {
+    border: 1px solid #eadfdf;
+}
+
+.item-icon-left .icon {
+    left: 7px;
 }

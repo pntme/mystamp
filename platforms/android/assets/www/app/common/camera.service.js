@@ -83,8 +83,10 @@
                   saveToPhotoAlbum: false
               }
               image.takePhoto(1).then(function(blob) {
+                  $ionicLoading.show({ template: '<ion-spinner icon="crescent"></ion-spinner> Compiling' })
                   q.resolve(blob);
               }, function(err) {
+                console.log(err)
                   $ionicLoading.hide();
                   q.reject(err);
               });

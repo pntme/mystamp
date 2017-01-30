@@ -1,8 +1,9 @@
-(function(){
-'use strict';
-angular.module('hash', [
-	'ionic',
-	'ngStorage',
-	'ngCordova'
-	]);
+(function() {
+    'use strict';
+    angular.module('hash', [
+        'ionic',
+        'ngStorage',
+        'ngCordova',
+        'ionic-material'
+    ]);
 })();

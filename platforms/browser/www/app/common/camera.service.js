@@ -1,9 +1,9 @@
   (function() {
       'use strict';
       angular.module('hash')
-          .service('Image1', ['$ionicHistory', '$timeout', '$cordovaImagePicker', '$cordovaFile', '$state', '$rootScope', '$q', '$ionicActionSheet', 'localStorageService', '$ionicLoading', imageUpload])
+          .service('Image1', ['$ionicHistory', '$timeout', '$cordovaFile', '$state', '$rootScope', '$q', '$ionicActionSheet', 'localStorageService', '$ionicLoading', imageUpload])
 
-      function imageUpload($ionicHistory, $state, $timeout, $cordovaImagePicker, $cordovaFile, $rootScope, $q, $ionicActionSheet, localStorageService, $ionicLoading) {
+      function imageUpload($ionicHistory, $state, $timeout, $cordovaFile, $rootScope, $q, $ionicActionSheet, localStorageService, $ionicLoading) {
           var image = {};
           image.finalBlob = '';
           image.upload = function(file, api) {
@@ -33,7 +33,7 @@
               return buf;
           };
           image.baseUpload = function(imageBase64) {
-              var name = new Date().valueOf() + '.png';
+              var name =  new Date().valueOf() + '.png';
               var binary = image.fixBinary(atob(imageBase64));
               var blob = new Blob([binary], { type: 'image/png', name: name });
               blob.name = name;
@@ -71,80 +71,25 @@
 
           image.takePhoto1 = function(title) {
               var q = $q.defer();
-              var hideSheet = $ionicActionSheet.show({
-                  buttons: [{
-                      text: '<p class="text-center"><i class="ion-images"></i> Gallery</p>'
-                  }, {
-                      text: '<p class="text-center"><i class="ion-camera"></i> Camera</p>'
-                  }],
-                  titleText: title,
-                  cancelText: 'Cancel',
-                  cancel: function() {},
-                  buttonClicked: function(index) {
-                      $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
-                      console.log(index)
-                      if (index == 0) {
-                          var options = {
-                              maximumImagesCount: 10,
-                              width: 800,
-                              height: 800,
-                              quality: 80
-                          };
-                          $cordovaImagePicker.getPictures(options).then(function(results) {
-                                  for (var i = 0; i < results.length; i++) {
-                                      console.log('Image URI: ' + results[i]);
-                                      $scope.images.push(results[i]);
-                                  }
-                                  if (!$scope.$$phase) {
-                                      $scope.$apply();
-                                  }
-                              }, function(error) {
-                                  // error getting photos
-                              });
-
-
-                      } else {
-                          var options = {
-                              quality: 75,
-                              destinationType: Camera.DestinationType.DATA_URL,
-                              sourceType: Camera.PictureSourceType.CAMERA,
-                              allowEdit: true,
-                              encodingType: Camera.EncodingType.JPEG,
-                              targetWidth: 300,
-                              targetHeight: 300,
-                              popoverOptions: CameraPopoverOptions,
-                              saveToPhotoAlbum: false
-                          };
-
-                          image.takePhoto(index).then(function(blob) {
-                              q.resolve(blob);
-                          }, function(err) {
-                              q.reject(err);
-                          });
-                      }
-                      return true;
-                  }
+              var options = {
+                  quality: 75,
+                  destinationType: Camera.DestinationType.DATA_URL,
+                  sourceType: Camera.PictureSourceType.CAMERA,
+                  allowEdit: true,
+                  encodingType: Camera.EncodingType.JPEG,
+                  targetWidth: 100,
+                  targetHeight: 100,
+                  popoverOptions: CameraPopoverOptions,
+                  saveToPhotoAlbum: false
+              }
+              image.takePhoto(1).then(function(blob) {
+                  q.resolve(blob);
+              }, function(err) {
+                console.log(err)
+                  $ionicLoading.hide();
+                  q.reject(err);
               });
               return q.promise;
-              // var q = $q.defer();
-              // var options = {
-              //     quality: 75,
-              //     destinationType: Camera.DestinationType.DATA_URL,
-              //     sourceType: Camera.PictureSourceType.CAMERA,
-              //     allowEdit: true,
-              //     encodingType: Camera.EncodingType.JPEG,
-              //     targetWidth: 100,
-              //     targetHeight: 100,
-              //     popoverOptions: CameraPopoverOptions,
-              //     saveToPhotoAlbum: false
-              // }
-              // image.takePhoto(1).then(function(blob) {
-              //     q.resolve(blob);
-              // }, function(err) {
-              //     $ionicLoading.hide();
-              //     q.reject(err);
-              // });
-              // return q.promise;
           };
 
           image.saveTOdb = function() {

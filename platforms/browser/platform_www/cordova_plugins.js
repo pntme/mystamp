@@ -320,6 +320,22 @@ module.exports = [
         "clobbers": [
             "plugins.imagePicker"
         ]
+    },
+    {
+        "file": "plugins/com.verso.cordova.clipboard/www/clipboard.js",
+        "id": "com.verso.cordova.clipboard.Clipboard",
+        "pluginId": "com.verso.cordova.clipboard",
+        "clobbers": [
+            "cordova.plugins.clipboard"
+        ]
+    },
+    {
+        "file": "plugins/cordova-instagram-plugin/www/CDVInstagramPlugin.js",
+        "id": "cordova-instagram-plugin.InstagramPlugin",
+        "pluginId": "cordova-instagram-plugin",
+        "clobbers": [
+            "Instagram"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -338,7 +354,9 @@ module.exports.metadata =
     "cordova-plugin-x-toast": "2.5.2",
     "cordova-sqlite-storage": "1.5.2",
     "ionic-plugin-keyboard": "2.2.1",
-    "cordova-plugin-image-picker": "1.1.1"
+    "cordova-plugin-image-picker": "1.1.1",
+    "com.verso.cordova.clipboard": "0.1.0",
+    "cordova-instagram-plugin": "0.5.4"
 }
 // BOTTOM OF METADATA
 });

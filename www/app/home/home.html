@@ -1,18 +1,93 @@
-<ion-view view-title="Action" has-header="true">
-    <ion-content class="padding" scroll='false'>
-        <div  style="position: absolute;width: 91%;padding: 15px;margin: 0px auto;height: 100%;top: 48px;">
-            <div class="list list-inset">
-                <label class="item item-input">
-                    <i class="icon ion-ios-compose-outline placeholder-icon twColor font23"></i>
-                    <input type="text" placeholder="Title" name="email" class="twColor" ng-model='home.title' ng-blur="home.done()">
-                </label>
-            </div>
-            <div class="list list-inset">
-                <label class="item item-input">
-                    <i class="icon ion-ios-grid-view-outline placeholder-icon twColor font23"></i>
-                    <input type="text" placeholder="Hashtag" ng-model="home.hash" class="twColor" ng-blur="home.done()">
-                </label>
-            </div>
+<header></header>
+<ion-content class="" has-header="true" has-bouncing="true">
+<canvas id="tempCanvas" style="display: none;"></canvas>
+ <img ng-src="{{image}}" style="width: 100%; display: none;">
+    <div class="list m-t-43">
+        <div class="item item-divider">
+            Add your stuffs
         </div>
-    </ion-content>
-</ion-view>
+        <div class="item item-input-inset">
+            <i class="icon ion-calendar " style="font-size: 30px;"></i>
+            <label class="item-input-wrapper" style="background: #fff;">
+                <input type="text" placeholder="Event name" style="width: 100%; padding-left: 12px;" ng-model='home.setting.title' ng-blur="home.done()">
+            </label>
+        </div>
+        <div class="item item-input-inset item-icon-left item-icon-right">
+            <img src="assest/img/hashtag.png" class="icon" style="height: 27px;margin-top: 13px;margin-left: 7px;">
+            <label class="item-input-wrapper" style="background: #fff;">
+                <input type="text" placeholder="Enter hashtag with hash" style="width: 100%; padding-left: 37px;" ng-model="home.setting.hash" ng-blur="home.done()">
+            </label>
+        </div>
+        <div class="item item-divider" style="border: none;" ng-click="showHash();">
+            Tools
+        </div>
+        <li class="item item-select item-icon-left">
+            <i class="icon  ion-arrow-expand"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Sharing Platform</span>
+            <select ng-model="home.setting.sharingPlatform" ng-change="home.done();">
+                <option ng-repeat="(key, value) in home.platforms track by $index" value="{{key}}">{{value}}</option>
+            </select>
+        </li>
+        <li class="item item-select item-icon-left">
+            <i class="icon  ion-paintbucket"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Hashtag color</span>
+            <select ng-model="home.setting.hashtagColor" ng-change="home.done();">
+                <option ng-repeat="(key, value) in home.cssColor track by $index" ng-style="{'color': value}" value="{{value}}">{{key}}</option>
+            </select>
+        </li>
+        <li class="item item-toggle item-icon-left">
+            <i class="icon  ion-android-done-all"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Hashtag shadow</span>
+            <label class="toggle toggle-positive">
+                <input type="checkbox" ng-model="home.setting.hashtagShadow" ng-change="home.done();">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </li>
+        <li class="item item-select item-icon-left">
+            <i class="icon ion-ios-color-wand"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Shadow color</span>
+            <select ng-model="home.setting.shadowColor" ng-change="home.done();">
+                <option ng-repeat="(key, value) in home.cssColor track by $index" ng-style="{'color': value}" value="{{value}}">{{key}}</option>
+            </select>
+        </li>
+        <li class="item item-toggle item-icon-left">
+            <i class="icon  ion-clock"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Keep History</span>
+            <label class="toggle toggle-positive">
+                <input type="checkbox" ng-model="home.setting.keepHistory" ng-change="home.done();">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </li>
+        <li class="item item-toggle item-icon-left">
+            <i class="icon  ion-ios-photos"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Keep unused media</span>
+            <label class="toggle toggle-positive">
+                <input type="checkbox" ng-model="home.setting.keepUnusedMedia" ng-change="home.done();">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </li>
+        <li class="item item-toggle item-icon-left">
+            <i class="icon  ion-social-buffer"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Keep untagged media</span>
+            <label class="toggle toggle-positive">
+                <input type="checkbox" ng-model="home.setting.keepUntaggedMedia" ng-change="home.done();">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </li>
+        <a class="item item-icon-left item-icon-right" ng-click="home.showHash()">
+            <i class="icon ion-ios-eye"></i> Preview hash
+            <i class="icon ion-ios-arrow-right"></i>
+        </a>
+        <a class="item item-icon-left" ng-click="home.reset()">
+            <i class="icon ion-arrow-return-left"></i> Use default settings
+        </a>
+    </div> 
+</ion-content>

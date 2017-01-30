@@ -45,10 +45,16 @@
         },
         "cordova-plugin-image-picker": {
             "PACKAGE_NAME": "com.hashify.pr"
+        },
+        "cordova-instagram-plugin": {
+            "PACKAGE_NAME": "com.hashify.pr"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.hashify.pr"
+        },
+        "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.hashify.pr"
         }
     }
