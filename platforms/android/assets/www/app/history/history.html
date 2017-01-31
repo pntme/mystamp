@@ -1,6 +1,8 @@
+<header></header>
 <ion-view view-title="History">
-  <ion-content style="margin-top: 44px;">
-    <ion-list>
+    <ion-content style="margin-top: 44px;">
+        <ion-gallery ion-gallery-items="items" ng-if="items"></ion-gallery>
+        <!--  <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats track by $index"  item-width="100%"
     item-height="76px" type="item-text-wrap" href="#/viewphoto/{{chat.date}}">
         <img ng-src="{{chat.image}}">
@@ -11,6 +13,14 @@
           Delete
         </ion-option-button>
       </ion-item>
-    </ion-list>
-  </ion-content>
+    </ion-list> -->
+    </ion-content>
+<!--  <nav mfb-menu position="br" effect="slidein" 
+     active-icon="ion-close-round" resting-icon="ion-funnel"
+     toggling-method="click" label="Filter" menu-state="myVar">
+  <button mfb-button icon="ion-arrow-graph-up-right" label="Shared media" ng-click = "Open('Job', 'savejob.php', 'New job posted')"></button>
+  <button mfb-button icon="ion-ios-photos" label="Unused media" ng-click = "Open('Event', 'saveevent.php', 'New event posted')"></button>
+
+   <button mfb-button icon="ion-grid" label="Show all" ng-click = "Open('News', 'savenews.php','New news Posted')"></button>
+</nav> -->
 </ion-view>

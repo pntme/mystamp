@@ -2,17 +2,18 @@
     'use strict';
     angular.module('hash').controller('viewPhotoCtrl', viewPhotoCtrl);
 
-    function viewPhotoCtrl(localStorageService, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal, Gallery, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading) {
+    function viewPhotoCtrl(localStorageService,   $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal, Gallery, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading) {
         var self = this;
         var fileName;
         var hashWidth;
+        var setting = localStorageService.get('setting')
         $scope.zoomMin = 1;
         var TagedImages = [];
         if ($stateParams.id) {
             var selected = db.GetDataById($stateParams.id);
-            $scope.MulImage = [selected.image];
-            $scope.image = selected.image;
-            self.textOverlay = selected.tweet;
+            $scope.MulImage = [selected.src];
+            $scope.image = selected.src;
+            self.textOverlay = selected.sub;
         } else {
             if (Gallery.pics) {
                 hashWidth = "30px impact";
@@ -25,8 +26,6 @@
                 createOverlay($scope.MulImage[i], 'image' + i);
             }
         }
-
-
 
         function createOverlay(image12, dynamicId) {
             $timeout(function() {
@@ -43,12 +42,13 @@
                     context.font = hashWidth;
                 }
                 context.textAlign = 'right';
-                context.fillStyle = 'white';
-                context.shadowColor = 'red';
-                context.shadowBlur = 20;
-                context.shadowOffsetX = 15;
-                context.shadowOffsetY = 15;
-                context.fillText(localStorageService.get('setting').hash, canvas.width - 20, canvas.height - 35);
+                context.fillStyle = setting.hashtagColor;
+                if (setting.hashtagShadow === true) {
+                    context.shadowColor = setting.shadowColor;
+                    context.shadowBlur = 30;
+                }
+
+                context.fillText('#' + setting.hash, canvas.width - 20, canvas.height - 35);
                 var imgURI = canvas.toDataURL();
                 $timeout(function() {
                     TagedImages.push(imgURI);
@@ -59,7 +59,6 @@
                     $scope.image = imgURI;
                     imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
                     var blob = Image1.baseUpload(imgURI);
-                    // console.log(blob)
                     var name = new Date().valueOf() + '.png';
                     $cordovaFile.writeFile(cordova.file.externalDataDirectory, name, blob, true)
                         .then(function(success) {
@@ -84,7 +83,7 @@
                     text: '<p class="text-center">Instagram</p>'
                 }, {
                     text: '<p class="text-center">Facebook</p>'
-                }],
+                }],  
                 titleText: 'Select platform',
                 cancelText: 'Cancel',
                 cancel: function() {},
@@ -161,6 +160,12 @@
             $scope.modal.remove()
         };
 
-        
+         
+        $ionicPlatform.registerBackButtonAction(function() {
+            console.log('clicked')
+        });
+
+
+
     }
 })();

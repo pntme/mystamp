@@ -80,7 +80,7 @@
                   targetWidth: 100,
                   targetHeight: 100,
                   popoverOptions: CameraPopoverOptions,
-                  saveToPhotoAlbum: false
+                  saveToPhotoAlbum: true
               }
               image.takePhoto(1).then(function(blob) {
                   $ionicLoading.show({ template: '<ion-spinner icon="crescent"></ion-spinner> Compiling' })

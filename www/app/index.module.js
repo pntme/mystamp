@@ -4,6 +4,8 @@
         'ionic',
         'ngStorage',
         'ngCordova',
-        'ionic-material'
+        'ionic-material',
+        'ion-gallery',
+        'ng-mfb'
     ]);
 })();

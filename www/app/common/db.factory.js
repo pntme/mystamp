@@ -39,8 +39,8 @@
                 for (var i = 0; i < rs.rows.length; i++) {
                     var obj = {
                         'title': rs.rows.item(i).title,
-                        'tweet': rs.rows.item(i).tweet,
-                        'image': rs.rows.item(i).image,
+                        'sub': rs.rows.item(i).tweet,
+                        'src': rs.rows.item(i).image,
                         'date': rs.rows.item(i).date
                     }
                     finalData.push(obj);

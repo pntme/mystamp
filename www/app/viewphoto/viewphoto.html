@@ -1,7 +1,7 @@
-    <ion-view view-title="Action" has-header="true" class="has-header">
-      <ion-content class="padding">
+    <ion-view view-title="Action">
+      <ion-content>
         <br><br>
-        <a class="item" style="padding: 8px; border:none;">
+        <a class="item" style="padding: 7px; border:none; margin: 0 auto;">
           <ion-scroll direction="x">
             <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" />
              <canvas ng-repeat="image in MulImage track by $index" id="{{'image'+$index}}" style="display: none;"></canvas>
@@ -13,9 +13,9 @@
     margin-left: 16px;">
                 <p style="color:red;" ng-show="twForm.tw.$invalid">Tweet should not exceed then 140 character</p>
             </div>
-            <div class="list">
+            <div class="list" style="border-bottom: 1px solid #eadfdf;">
                 <label class="item item-input">
-                    <textarea type="text" ng-model="view.textOverlay" placeholder="Enter description" style="background:transparent;" class="twColor" name="tw" ng-maxlength="140"></textarea>
+                    <textarea type="text" ng-model="view.textOverlay" placeholder="Enter description" style="background:transparent;" name="tw" ng-maxlength="140"></textarea>
                 </label>
             </div>
             <div class="row">
