@@ -69,7 +69,7 @@
               image.defer.reject("Camera Not Available");
           };
 
-          image.takePhoto1 = function(title) {
+          image.takePhoto1 = function(index) {
               var q = $q.defer();
               var options = {
                   quality: 75,
@@ -80,9 +80,10 @@
                   targetWidth: 100,
                   targetHeight: 100,
                   popoverOptions: CameraPopoverOptions,
-                  saveToPhotoAlbum: false
+                  saveToPhotoAlbum: true
               }
-              image.takePhoto(1).then(function(blob) {
+              image.takePhoto(index).then(function(blob) {
+                  $ionicLoading.show({ template: '<ion-spinner icon="crescent"></ion-spinner> Compiling' })
                   q.resolve(blob);
               }, function(err) {
                 console.log(err)

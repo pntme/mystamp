@@ -61,9 +61,6 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.hashify805552"
         },
-        "cordova-plugin-image-picker": {
-            "PACKAGE_NAME": "com.hashify.pr"
-        },
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.hashify.pr"
         },
@@ -387,14 +384,6 @@
             "runs": true
         },
         {
-            "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
-            "id": "cordova-plugin-image-picker.ImagePicker",
-            "pluginId": "cordova-plugin-image-picker",
-            "clobbers": [
-                "plugins.imagePicker"
-            ]
-        },
-        {
             "file": "plugins/com.verso.cordova.clipboard/www/clipboard.js",
             "id": "com.verso.cordova.clipboard.Clipboard",
             "pluginId": "com.verso.cordova.clipboard",
@@ -425,7 +414,6 @@
         "cordova-plugin-x-toast": "2.5.2",
         "cordova-sqlite-storage": "1.5.2",
         "ionic-plugin-keyboard": "2.2.1",
-        "cordova-plugin-image-picker": "1.1.1",
         "com.verso.cordova.clipboard": "0.1.0",
         "cordova-instagram-plugin": "0.5.4"
     }

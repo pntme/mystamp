@@ -43,9 +43,6 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.hashify805552"
         },
-        "cordova-plugin-image-picker": {
-            "PACKAGE_NAME": "com.hashify.pr"
-        },
         "cordova-instagram-plugin": {
             "PACKAGE_NAME": "com.hashify.pr"
         }

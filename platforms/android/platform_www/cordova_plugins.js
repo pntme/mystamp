@@ -284,14 +284,6 @@ module.exports = [
         "runs": true
     },
     {
-        "id": "cordova-plugin-image-picker.ImagePicker",
-        "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
-        "pluginId": "cordova-plugin-image-picker",
-        "clobbers": [
-            "plugins.imagePicker"
-        ]
-    },
-    {
         "id": "com.verso.cordova.clipboard.Clipboard",
         "file": "plugins/com.verso.cordova.clipboard/www/clipboard.js",
         "pluginId": "com.verso.cordova.clipboard",
@@ -324,7 +316,6 @@ module.exports.metadata =
     "cordova-plugin-x-toast": "2.5.2",
     "cordova-sqlite-storage": "1.5.2",
     "ionic-plugin-keyboard": "2.2.1",
-    "cordova-plugin-image-picker": "1.1.1",
     "com.verso.cordova.clipboard": "0.1.0",
     "cordova-instagram-plugin": "0.5.4"
 };

@@ -39,8 +39,8 @@
                 for (var i = 0; i < rs.rows.length; i++) {
                     var obj = {
                         'title': rs.rows.item(i).title,
-                        'sub': rs.rows.item(i).tweet,
-                        'src': rs.rows.item(i).image,
+                        'tweet': rs.rows.item(i).tweet,
+                        'image': rs.rows.item(i).image,
                         'date': rs.rows.item(i).date
                     }
                     finalData.push(obj);
@@ -77,8 +77,6 @@
         f.deleteFile = function(file) {
             var path = cordova.file.externalDataDirectory;
             var filename = file.replace(path, '');
-            console.log(path)
-            console.log(filename)
             window.resolveLocalFileSystemURL(path, function(dir) {
                 dir.getFile(filename, { create: false }, function(fileEntry) {
                     fileEntry.remove(function() {
@@ -94,6 +92,24 @@
             });
 
         }
+
+        f.getAllClips = function() {
+            console.log('j')
+             var defer = $q.defer();
+            var path = "file:///storage/emulated/0/Mystamp/";
+            window.resolveLocalFileSystemURI(path, function(fileSystem) {
+                var directoryReader = fileSystem.createReader();
+                directoryReader.readEntries(function(entries) {
+                    defer.resolve(entries);
+                }, function(error) {
+                    defer.reject(error);
+                });
+            });
+            return defer.promise;
+        }
+
+
+
         return f;
     }
 })();

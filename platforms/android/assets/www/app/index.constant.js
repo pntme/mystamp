@@ -3,10 +3,10 @@
     angular.module('hash').constant('configuration', {
         platforms: {
                All : "Alway ask",
-               twitter: "Twitter",
-               instagram: "Instagram",
-               fb: "Facebook",
-               whatsapp: "Whatsapp"         
+               0: "Twitter",
+               1: "Instagram",
+               2: "Facebook",
+               3: "Whatsapp"         
         },
         CssColors: {
             "aliceblue": "#f0f8ff",

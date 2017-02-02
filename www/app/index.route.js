@@ -1,18 +1,7 @@
 (function() {
     'use strict';
     angular.module('hash')
-        .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider) {
-
-
-            // ionGalleryConfigProvider.setGalleryConfig({
-            //     action_label: 'Close',
-            //     template_gallery: 'gallery.html',
-            //     template_slider: 'slider.html',
-            //     toggle: false,
-            //     row_size: 3,
-            //     fixed_row_size: true
-            // });
-
+        .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
 
             $ionicConfigProvider.tabs.position('bottom');
@@ -57,6 +46,17 @@
                         'tab-chats': {
                             templateUrl: 'app/history/history.html',
                             controller: 'historyCtrl'
+                        }
+                    }
+                })
+                .state('tab.clips', {
+                    url: '/clips',
+                    cache: false,
+                    views: {
+                        'tab-clips': {
+                            templateUrl: 'app/clips/clips.html',
+                            controller: 'clipCtrl',
+                            controllerAs: 'clip'
                         }
                     }
                 })

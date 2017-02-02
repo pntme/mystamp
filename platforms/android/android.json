@@ -57,10 +57,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"ImagePicker\"><param name=\"android-package\" value=\"com.synconset.ImagePicker\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Clipboard\"><param name=\"android-package\" value=\"com.verso.cordova.clipboard.Clipboard\" /></feature>",
                             "count": 1
                         },
@@ -85,18 +81,8 @@
                             "count": 1
                         }
                     ],
-                    "/manifest/application": [
-                        {
-                            "xml": "<activity android:label=\"@string/multi_app_name\" android:name=\"com.synconset.MultiImageChooserActivity\" android:theme=\"@android:style/Theme.Holo.Light\"></activity>",
-                            "count": 1
-                        }
-                    ],
-                    "/manifest": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
-                        }
-                    ]
+                    "/manifest/application": [],
+                    "/manifest": []
                 }
             }
         }
@@ -139,9 +125,6 @@
             "PACKAGE_NAME": "com.hashify.pr"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.hashify.pr"
-        },
-        "cordova-plugin-image-picker": {
             "PACKAGE_NAME": "com.hashify.pr"
         },
         "com.verso.cordova.clipboard": {
@@ -437,14 +420,6 @@
             "runs": true
         },
         {
-            "id": "cordova-plugin-image-picker.ImagePicker",
-            "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
-            "pluginId": "cordova-plugin-image-picker",
-            "clobbers": [
-                "plugins.imagePicker"
-            ]
-        },
-        {
             "id": "com.verso.cordova.clipboard.Clipboard",
             "file": "plugins/com.verso.cordova.clipboard/www/clipboard.js",
             "pluginId": "com.verso.cordova.clipboard",
@@ -475,7 +450,6 @@
         "cordova-plugin-x-toast": "2.5.2",
         "cordova-sqlite-storage": "1.5.2",
         "ionic-plugin-keyboard": "2.2.1",
-        "cordova-plugin-image-picker": "1.1.1",
         "com.verso.cordova.clipboard": "0.1.0",
         "cordova-instagram-plugin": "0.5.4"
     }

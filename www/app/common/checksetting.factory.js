@@ -15,7 +15,7 @@
                 sharingPlatform: "All",
                 hashtagColor: "#ffffff",
                 hashtagShadow: true,
-                shadowColor: "#ff0000",
+                shadowColor: "#000000",
                 keepHistory: true,
                 keepUnusedMedia: true,
                 keepUntaggedMedia: true

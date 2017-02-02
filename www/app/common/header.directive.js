@@ -14,10 +14,8 @@
                     </span>
                 </div>
             </div>`,
-            controller: function(localStorageService, tost, $ionicActionSheet, Gallery, $localStorage, $state, Image1, $ionicModal, $scope, $ionicLoading) {
+            controller: function(localStorageService, tost, $ionicActionSheet,  $localStorage, $state, Image1, $ionicModal, $scope, $ionicLoading) {
                 $scope.capture = function() {
-                    Image1.finalBlob = '';
-                    Gallery.pics = '';
                     var setting = localStorageService.get('setting');
                     if (setting && setting.title && setting.hash) {
                         var hideSheet = $ionicActionSheet.show({
@@ -29,18 +27,9 @@
                             cancelText: 'Cancel',
                             cancel: function() {},
                             buttonClicked: function(index) {
-                                if (index == 1) {
-                                    Image1.takePhoto1().then(function(res) {
+                                    Image1.takePhoto1(index).then(function(res) {
                                         $state.go('viewphoto');
                                     });
-                                } else {
-                                    Gallery.getPics().then(function(res) {
-                                        $state.go('viewphoto');
-                                    }, function(err) {
-                                        console.log(err)
-                                    });
-                                }
-
                                 return true;
                             }
                         });

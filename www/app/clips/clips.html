@@ -1,0 +1,14 @@
+<header></header>
+<ion-view view-title="Drawing">
+    <ion-content style="margin-top: 65px; padding: 9px;">
+        <div class="container">
+            <div pw-canvas version="clip.version" options="{undo: true, width: clip.width, height: 300, color: selectedColor, lineWidth: clip.selectedLineWidth}"></div>
+            <div pw-color-selector="['#000', '#9CB199', '#CF3759', '#485247', '#E77547', '#D38E47', '#0A6A74', '#153974']" color="selectedColor" style="text-align: center;margin-top: 11px;"></div>
+            <div class="range">
+                <input type="range" name="volume" min="1" max="50" ng-model="clip.selectedLineWidth"> {{clip.selectedLineWidth}}
+            </div>
+                <button ng-click="clip.undo()" ng-disabled="clip.version < 1" class="button button-small button-energized">Undo ({{clip.version}})</button>
+                <button   ng-disabled="clip.version < 1"   class="button button-small button-calm" style="float: right;" ng-click="clip.save();">save</button>
+        </div>
+    </ion-content>
+</ion-view>

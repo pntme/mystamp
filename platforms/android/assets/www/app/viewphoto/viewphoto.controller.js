@@ -2,26 +2,24 @@
     'use strict';
     angular.module('hash').controller('viewPhotoCtrl', viewPhotoCtrl);
 
-    function viewPhotoCtrl(localStorageService,   $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal, Gallery, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading) {
+    function viewPhotoCtrl(localStorageService, $state, $ionicPopup, $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal,  $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading, $ionicHistory) {
         var self = this;
         var fileName;
         var hashWidth;
         var setting = localStorageService.get('setting')
         $scope.zoomMin = 1;
+        var savedToMemory = false;
         var TagedImages = [];
         if ($stateParams.id) {
+            savedToMemory = true;
             var selected = db.GetDataById($stateParams.id);
-            $scope.MulImage = [selected.src];
-            $scope.image = selected.src;
+            $scope.MulImage = [selected.image];
+            $scope.image = selected.image;
             self.textOverlay = selected.sub;
         } else {
-            if (Gallery.pics) {
-                hashWidth = "30px impact";
-                $scope.MulImage = Gallery.pics;
-            } else {
+                savedToMemory = false;
                 hashWidth = "80px impact";
                 $scope.MulImage = ["data:image/jpeg;base64," + Image1.binary];
-            }
             for (var i = 0; i < $scope.MulImage.length; i++) {
                 createOverlay($scope.MulImage[i], 'image' + i);
             }
@@ -38,8 +36,10 @@
                 context.drawImage(source, 0, 0);
                 context.font = "100px impact";
                 var textWidth = context.measureText($scope.frase).width;
+               
                 if (textWidth > canvas.offsetWidth) {
-                    context.font = hashWidth;
+                    context.font ="80px impact";
+                    console.log("came")
                 }
                 context.textAlign = 'right';
                 context.fillStyle = setting.hashtagColor;
@@ -71,44 +71,58 @@
             }, 1000);
         }
 
-
-
-
         $scope.share = function() {
-            self.SaveData();
-            var hideSheet = $ionicActionSheet.show({
-                buttons: [{
-                    text: '<p class="text-center">Twitter</p>'
-                }, {
-                    text: '<p class="text-center">Instagram</p>'
-                }, {
-                    text: '<p class="text-center">Facebook</p>'
-                }],  
-                titleText: 'Select platform',
-                cancelText: 'Cancel',
-                cancel: function() {},
-                buttonClicked: function(index) {
-                    switch (index) {
-                        case 0:
-                            self.ViaTwitter();
-                            break;
-                        case 1:
-                            self.ViaInstagram();
-                            break;
-                        case 2:
-                            self.ViaFacebook();
-                            break;
-                        case 3:
-                            self.SaveData();
-                            break;
+            if (setting.sharingPlatform === 'All') {
+                self.SaveData();
+                var hideSheet = $ionicActionSheet.show({
+                    buttons: [{
+                        text: '<p class="text-center">Twitter</p>'
+                    }, {
+                        text: '<p class="text-center">Instagram</p>'
+                    }, {
+                        text: '<p class="text-center">Facebook</p>'
+                    }, {
+                        text: '<p class="text-center">Whatsapp</p>'
+                    }],
+                    titleText: 'Select platform',
+                    cancelText: 'Cancel',
+                    cancel: function() {},
+                    buttonClicked: function(index) {
+                        DoAction(index);
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
+            } else {
+                DoAction(setting.sharingPlatform)
+            }
         }
 
 
+        function DoAction(counter) {
 
+            switch (parseInt(counter)) {
+                case 0:
+                    console.log('twitter')
+                    self.ViaTwitter();
+                    break;
+                case 1:
+                    console.log('insta')
+                    self.ViaInstagram();
+                    break;
+                case 2:
+                    console.log('fb')
+                    self.ViaFacebook();
+                    break;
+                case 3:
+                    console.log('wa')
+                    self.ViaWhatsapp();
+                    break;
+            }
+        }
+
+        self.ViaWhatsapp = function() {
+            $cordovaSocialSharing.shareViaWhatsApp(self.textOverlay, $scope.image).then(self.OnSuccess, self.OnError);
+        }
 
         self.ViaTwitter = function() {
             $cordovaSocialSharing.shareViaTwitter(self.textOverlay, $scope.image).then(self.OnSuccess, self.OnError);
@@ -123,12 +137,16 @@
         }
 
         self.SaveData = function() {
-            var tweetData = localStorageService.get('setting');
-            if ($stateParams.id) {
-                console.log('update query must go here');
-            } else {
-                db.InsertDb(tweetData.title, self.textOverlay, fileName);
+            if (setting.keepHistory === true) {
+                savedToMemory = true;
+                var tweetData = localStorageService.get('setting');
+                if ($stateParams.id) {
+                    console.log('update query must go here');
+                } else {
+                    db.InsertDb(tweetData.title, self.textOverlay, fileName);
+                }
             }
+
         }
 
         self.OnError = function(error) {
@@ -137,6 +155,7 @@
         }
 
         self.OnSuccess = function() {
+            self.SaveData();
             console.log('success');
         }
 
@@ -160,12 +179,45 @@
             $scope.modal.remove()
         };
 
-         
+
         $ionicPlatform.registerBackButtonAction(function() {
             console.log('clicked')
         });
 
 
+        document.addEventListener("deviceready", function() {
+            var count = 0;
+            $ionicPlatform.registerBackButtonAction(function() {
+                if (setting.keepHistory === true) {
+                    if (savedToMemory === false) {
+                        var confirmPopup = $ionicPopup.confirm({
+                            title: 'Warning',
+                            template: 'Do you want to save this media ?',
+                            cancelText: 'Discard',
+                            okText: 'Keep'
+                        });
 
+                        confirmPopup.then(function(res) {
+                            if (res) {
+                                self.SaveData();
+                                $state.go('tab.chats');
+                            } else {
+                                $state.go('tab.dash');
+                            }
+                        });
+                    } else {
+                        $state.go('tab.chats');
+                    }
+                } else {
+                    $state.go('tab.chats');
+                }
+            }, 100);
+        });
+
+
+      db.getAllClips().then(function(res){
+        console.log(res)
+      });
+  
     }
 })();

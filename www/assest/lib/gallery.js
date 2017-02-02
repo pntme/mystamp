@@ -205,7 +205,7 @@ function() {
                 }, e.openModal = function() {
                     t.show()
                 }, e.share = function(data) {
-                    e.$emit('SelectedData',{id: SelectedData.date});
+                    e.$emit('SelectedData', { id: SelectedData.date });
                     t.hide();
                     t.remove();
                 }, e.OpenOption = function(data) {
@@ -215,8 +215,14 @@ function() {
                 }, e.SlidingStarted = function() {
                     e.ImageClicked = false;
                 }, e.remove = function() {
-                    
-                   e.$emit('SelectedDataRemove',{date: SelectedData.date, src: SelectedData.src});
+
+                    // console.log(SelectedData)
+                    // var ha = [{a:1, b:2},{a:3, b:4},{a:5, b:6},{a:7, b:8},{a:9, b:1},{a:2, b:3}]
+                    // var bn = {a:1, b:2};
+                    _.remove(e.slides, SelectedData);
+                    console.log(e.slides);
+                    e.selectedSlide++;
+                    // e.$emit('SelectedDataRemove', { date: SelectedData.date, src: SelectedData.src });
                 },
 
 

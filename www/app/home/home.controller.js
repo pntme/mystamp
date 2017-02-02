@@ -48,8 +48,15 @@
             }
             context.fillText('#' + localStorageService.get('setting').hash, canvas.width - 20, canvas.height - 35);
             var imgURI = canvas.toDataURL();
+
             $timeout(function() {
                 $scope.image = imgURI;
+                if ($scope.image == 'data:,') {
+                    return self.showHash();
+                }
+                // console.log($scope.image)
+
+
                 $ionicModal.fromTemplateUrl("app/home/preview.html", {
                     scope: $scope
                 }).then(function(modal) {
@@ -57,7 +64,11 @@
                     $scope.modal.show();
                     $ionicLoading.hide();
                 });
-            }, 1000);
+            }, 2000);
+
         }
+
+
+      
     }
 })();

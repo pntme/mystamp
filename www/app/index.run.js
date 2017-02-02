@@ -1,7 +1,8 @@
 (function() {
     angular.module('hash')
-        .run(function($ionicPlatform, db) {
+        .run(function($ionicPlatform, db, createfolder) {
             $ionicPlatform.ready(function() {
+                createfolder.create();
                 db.CreateDb();
                 if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
