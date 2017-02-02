@@ -10,20 +10,24 @@
         $scope.zoomMin = 1;
         var savedToMemory = false;
         var TagedImages = [];
-        if ($stateParams.id) {
-            savedToMemory = true;
-            var selected = db.GetDataById($stateParams.id);
-            $scope.MulImage = [selected.image];
-            $scope.image = selected.image;
-            self.textOverlay = selected.sub;
-        } else {
-            savedToMemory = false;
-            hashWidth = "80px impact";
-            $scope.MulImage = ["data:image/jpeg;base64," + Image1.binary];
-            for (var i = 0; i < $scope.MulImage.length; i++) {
-                createOverlay($scope.MulImage[i], 'image' + i);
-            }
-        }
+
+        $scope.MulImage =[ 'assest/img/bg.png'];
+
+
+        // if ($stateParams.id) {
+        //     savedToMemory = true;
+        //     var selected = db.GetDataById($stateParams.id);
+        //     $scope.MulImage = [selected.image];
+        //     $scope.image = selected.image;
+        //     self.textOverlay = selected.sub;
+        // } else {
+        //     savedToMemory = false;
+        //     hashWidth = "80px impact";
+        //     $scope.MulImage = ["data:image/jpeg;base64," + Image1.binary];
+        //     for (var i = 0; i < $scope.MulImage.length; i++) {
+        //         createOverlay($scope.MulImage[i], 'image' + i);
+        //     }
+        // }
 
         function createOverlay(image12, dynamicId) {
             $timeout(function() {
@@ -215,9 +219,9 @@
         });
 
 
-        db.getAllClips().then(function(res) {
-            console.log(res)
-        });
+        // db.getAllClips().then(function(res) {
+        //     console.log(res)
+        // });
 
     }
 })();

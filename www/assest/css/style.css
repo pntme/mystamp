@@ -244,9 +244,13 @@ ion-tabs.tabs-color-active-positive .tab-item.activated {
     color: red;
 }
 
+.bar-light {
+    box-shadow: none;
+}
+
 .image-list-thumb {
     border: 2px solid #fff;
-    width: 80%;
+    width: 90%;
     height: auto;
     display: block;
     margin: 0 auto;
