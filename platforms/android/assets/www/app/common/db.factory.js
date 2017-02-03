@@ -97,7 +97,7 @@
             console.log('j')
              var defer = $q.defer();
             var path = "file:///storage/emulated/0/Mystamp/";
-            window.resolveLocalFileSystemURI(path, function(fileSystem) {
+            window.resolveLocalFileSystemURL(path, function(fileSystem) {
                 var directoryReader = fileSystem.createReader();
                 directoryReader.readEntries(function(entries) {
                     defer.resolve(entries);

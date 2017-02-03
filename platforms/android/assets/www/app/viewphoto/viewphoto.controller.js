@@ -2,7 +2,7 @@
     'use strict';
     angular.module('hash').controller('viewPhotoCtrl', viewPhotoCtrl);
 
-    function viewPhotoCtrl(localStorageService, $state, $ionicPopup, $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal,  $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading, $ionicHistory) {
+    function viewPhotoCtrl(localStorageService, $state, $ionicPopup, $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading, $ionicHistory) {
         var self = this;
         var fileName;
         var hashWidth;
@@ -10,6 +10,10 @@
         $scope.zoomMin = 1;
         var savedToMemory = false;
         var TagedImages = [];
+
+
+
+
         if ($stateParams.id) {
             savedToMemory = true;
             var selected = db.GetDataById($stateParams.id);
@@ -17,57 +21,93 @@
             $scope.image = selected.image;
             self.textOverlay = selected.sub;
         } else {
-                savedToMemory = false;
-                hashWidth = "80px impact";
-                $scope.MulImage = ["data:image/jpeg;base64," + Image1.binary];
+            savedToMemory = false;
+            hashWidth = "80px impact";
+            $scope.MulImage = ["data:image/jpeg;base64," + Image1.binary];
             for (var i = 0; i < $scope.MulImage.length; i++) {
                 createOverlay($scope.MulImage[i], 'image' + i);
             }
         }
 
         function createOverlay(image12, dynamicId) {
+            $ionicLoading.hide();
             $timeout(function() {
-                var canvas = document.getElementById(dynamicId);
+                var canvas = document.getElementById("canvas");
                 var context = canvas.getContext('2d');
-                var source = new Image();
-                source.src = image12;
-                canvas.width = source.width;
-                canvas.height = source.height;
-                context.drawImage(source, 0, 0);
-                context.font = "100px impact";
-                var textWidth = context.measureText($scope.frase).width;
-               
-                if (textWidth > canvas.offsetWidth) {
-                    context.font ="80px impact";
-                    console.log("came")
-                }
-                context.textAlign = 'right';
-                context.fillStyle = setting.hashtagColor;
-                if (setting.hashtagShadow === true) {
-                    context.shadowColor = setting.shadowColor;
-                    context.shadowBlur = 30;
-                }
+                // var img1 = loadImage(image12, main);
+                // var img2 = loadImage(localStorageService.get("SelectedSign"), main);
+                var imagesLoaded = 0;
 
-                context.fillText('#' + setting.hash, canvas.width - 20, canvas.height - 35);
-                var imgURI = canvas.toDataURL();
-                $timeout(function() {
-                    TagedImages.push(imgURI);
-                    if (TagedImages.length === $scope.MulImage.length) {
-                        $scope.MulImage = TagedImages;
-                        $ionicLoading.hide();
+                function main() {
+                    imagesLoaded += 1;
+
+                    if (imagesLoaded == 2) {
+                        // composite now
+                        context.drawImage(img1, 0, 0);
+
+                        // context.globalAlpha = 0.6;
+                        // console.log(img1.width)
+                        // context.drawImage(img2, 10, 10, 200, 200);
+                        var imgURI = canvas.toDataURL();
+                        $timeout(function() {
+                            TagedImages.push(imgURI);
+                            $scope.MulImage = TagedImages;
+                            $ionicLoading.hide();
+                        }, 100);
+
                     }
-                    $scope.image = imgURI;
-                    imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
-                    var blob = Image1.baseUpload(imgURI);
-                    var name = new Date().valueOf() + '.png';
-                    $cordovaFile.writeFile(cordova.file.externalDataDirectory, name, blob, true)
-                        .then(function(success) {
-                            fileName = cordova.file.externalDataDirectory + name;
-                        }, function(error) {
-                            alert("Error 403, Insufficient permissions")
-                        });
+                }
 
-                }, 100);
+                function loadImage(src, onload) {
+                    // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
+                    var img = new Image();
+
+                    img.onload = onload;
+                    img.src = src;
+
+                    return img;
+                }
+
+
+                //     var source = new Image();
+                //     source.src = image12;
+                //     canvas.width = source.width;
+                //     canvas.height = source.height;
+                //     context.drawImage(source, 0, 0);
+                //     context.font = "100px impact";
+                //     var textWidth = context.measureText($scope.frase).width;
+
+                //     if (textWidth > canvas.offsetWidth) {
+                //         context.font = "80px impact";
+                //         console.log("came")
+                //     }
+                //     context.textAlign = 'right';
+                //     context.fillStyle = setting.hashtagColor;
+                //     if (setting.hashtagShadow === true) {
+                //         context.shadowColor = setting.shadowColor;
+                //         context.shadowBlur = 30;
+                //     }
+
+                //     context.fillText('#' + setting.hash, canvas.width - 20, canvas.height - 35);
+                //     var imgURI = canvas.toDataURL();
+                //     $timeout(function() {
+                //         TagedImages.push(imgURI);
+                //         if (TagedImages.length === $scope.MulImage.length) {
+                //             $scope.MulImage = TagedImages;
+                //             $ionicLoading.hide();
+                //         }
+                //         $scope.image = imgURI;
+                //         imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
+                //         var blob = Image1.baseUpload(imgURI);
+                //         var name = new Date().valueOf() + '.png';
+                //         $cordovaFile.writeFile(cordova.file.externalDataDirectory, name, blob, true)
+                //             .then(function(success) {
+                //                 fileName = cordova.file.externalDataDirectory + name;
+                //             }, function(error) {
+                //                 alert("Error 403, Insufficient permissions")
+                //             });
+
+                //     }, 100);
             }, 1000);
         }
 
@@ -215,9 +255,5 @@
         });
 
 
-      db.getAllClips().then(function(res){
-        console.log(res)
-      });
-  
     }
 })();

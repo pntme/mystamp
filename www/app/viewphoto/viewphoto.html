@@ -1,20 +1,13 @@
 <ion-view view-title="Action">
-    <!-- <div class="bar bar-header bar-light"> -->
-        <button class="button button-outline button-positive">
-            Stamp
-        </button>
-   <!--  </div> -->
+ 
     <ion-content scroll="true">
-        <!--  <div style="max-height: 100%; max-width: 100%;">
-          <img src="assest/img/bg.png">
-      </div> -->
-        <!--  <br><br> -->
-        <!-- <a class="item" style="padding: 7px; border:none; margin: 0 auto;"> -->
-        <!-- <ion-scroll direction="x"> -->
+        <a class="item" style="padding: 7px; border:none; margin: 0 auto;">
+        <ion-scroll direction="x">
         <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" />
         <canvas ng-repeat="image in MulImage track by $index" id="{{'image'+$index}}" style="display: none;"></canvas>
-        <!-- </ion-scroll> -->
-        <!-- </a> -->
+        </ion-scroll>
+        </a>
+
         <form name="twForm">
             <div style="    height: 15px;
     margin-left: 16px;">

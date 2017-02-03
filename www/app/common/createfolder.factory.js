@@ -40,7 +40,7 @@
                     q.resolve(success);
                 }, function(error) {
                     alert("Error 403, Insufficient permissions");
-                    q.reject(err);
+                    q.reject(error);
                 });
 
             return q.promise;

@@ -1,7 +1,7 @@
 <header></header>
 <ion-content class="" has-header="true" has-bouncing="true">
-<canvas id="tempCanvas" style="display: none;"></canvas>
- <img ng-src="{{image}}" style="width: 100%; display: none;">
+    <canvas id="tempCanvas" style="display: none;"></canvas>
+    <img ng-src="{{image}}" style="width: 100%; display: none;">
     <div class="list m-t-43">
         <div class="item item-divider">
             Add your stuff
@@ -52,6 +52,11 @@
                 <option ng-repeat="(key, value) in home.cssColor track by $index" ng-style="{'color': value}" value="{{value}}">{{key}}</option>
             </select>
         </li>
+        <li class="item item-icon-right item-icon-left" ng-click="home.openSignature();">
+            <i class="icon  ion-edit"></i>
+            <span style="font-size: 14px; color: rgb(0,0,0);">Select Signature</span>
+          <i class="icon ion-ios-arrow-right"></i>
+        </li>
         <li class="item item-toggle item-icon-left">
             <i class="icon  ion-clock"></i>
             <span style="font-size: 14px; color: rgb(0,0,0);">Keep History</span>
@@ -62,7 +67,7 @@
                 </div>
             </label>
         </li>
-     <!--    <li class="item item-toggle item-icon-left">
+        <!--    <li class="item item-toggle item-icon-left">
             <i class="icon  ion-ios-photos"></i>
             <span style="font-size: 14px; color: rgb(0,0,0);">Keep unused media</span>
             <label class="toggle toggle-positive">
@@ -79,5 +84,5 @@
         <a class="item item-icon-left" ng-click="home.reset()">
             <i class="icon ion-arrow-return-left"></i> Use default settings
         </a>
-    </div> 
+    </div>
 </ion-content>

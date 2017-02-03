@@ -1,0 +1,10 @@
+<div class="modal">
+    <div class="bar bar-header bar-calm-900">
+       <!--  <div class="buttons buttons-left header-item"> <span class="left-buttons"> <button class="button button-icon button-clear ion-navicon"> </button> </span> </div> -->
+        <div class="h1 title title-left light"></div>
+        <div class="buttons buttons-right header-item"> <span class="right-buttons"> <button class="button button-icon button-clear" style="font-size: 13px;" ng-click="signaturecloseModal()"> DONE </button> </span> </div>
+    </div>
+    <ion-content style="margin-top: 44px;">
+        <img ng-src="{{image.nativeURL}}" class="signatures" ng-repeat="image in signatures track by $index" ng-click="SelectSignature(image)" ng-class="image.selected" />
+    </ion-content>
+</div>
