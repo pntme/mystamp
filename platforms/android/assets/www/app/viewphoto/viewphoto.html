@@ -1,66 +1,15 @@
-
-        <canvas width="512" height="512" id="canvas"></canvas>
+<ion-view view-title="Action">
+ 
+    <ion-content scroll="true">
     
-<script type="text/javascript">
-    var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-
-var img1 = loadImage('6.jpg', main);
-var img2 = loadImage('5.png', main);
-
-var imagesLoaded = 0;
-function main() {
-    imagesLoaded += 1;
-
-    if(imagesLoaded == 2) {
-        // composite now
-           ctx.drawImage(img1, 10, 10, 250, 300);
-            
-            // ctx.globalAlpha = 0.6;
-            // console.log(img1.width)
-            // ctx.drawImage(img2,10, 10, 50, 50);
-    }
-}
-
-function loadImage(src, onload) {
-    // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
-    var img = new Image();
-    
-    img.onload = onload;
-    img.src = src;
-
-    return img;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--  <a class="item" style="padding: 7px; border:none; margin: 0 auto;">
-            <ion-scroll direction="x">
-                <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" style="width: 100%;" />
-                <canvas id="canvas" style="display: none;"></canvas>
-            </ion-scroll>
+        <!--  <br><br> -->
+        <a class="item" style="padding: 7px; border:none; margin: 0 auto;">
+        <ion-scroll direction="x">
+        <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" />
+        <canvas ng-repeat="image in MulImage track by $index" id="{{'image'+$index}}" style="display: none;"></canvas>
+        </ion-scroll>
         </a>
+
         <form name="twForm">
             <div style="    height: 15px;
     margin-left: 16px;">
@@ -76,6 +25,6 @@ function loadImage(src, onload) {
                     Share
                 </button>
             </div>
-        </form> -->
+        </form>
     </ion-content>
 </ion-view>

@@ -6,12 +6,14 @@
         var self = this;
         self.width = window.innerWidth - 20;
         self.selectedLineWidth = 10;
+
         self.undo = function() {
             self.version--;
         };
 
         self.save = function() {
             var canvas = document.getElementById("pwCanvasMain");
+
             var imgURI = canvas.toDataURL();
             imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
             var blob = Image1.baseUpload(imgURI);

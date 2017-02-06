@@ -37,7 +37,19 @@
                     if (c.canvasId = c.customCanvasId || "pwCanvasMain", c.tmpCanvasId = c.customCanvasId ? c.canvasId + "Tmp" : "pwCanvasTmp", c.width = c.width || 400, c.height = c.height || 300, c.backgroundColor = c.backgroundColor || "transparent", c.color = c.color || "#000", c.undoEnabled = c.undoEnabled || !1, c.opacity = c.opacity || .9, c.lineWidth = c.lineWidth || 1, c.undo = c.undo || !1, c.imageSrc = c.imageSrc || !1, c.imageSrc) {
                         var l = new Image;
                         l.onload = function() {
-                            p.drawImage(this, 0, 0)
+                            console.log(this)
+                            var background = new Image();
+                            background.src = "http://i.imgur.com/yf6d9SX.jpg";
+
+                            background.onload = function() {
+                                console.log('jjjj')
+                                p.drawImage(background, 0, 0);
+                            }
+
+
+
+
+                            // p.drawImage(this, 0, 0)
                         }, l.src = c.imageSrc
                     }
                     if (c.undo) {
