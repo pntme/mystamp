@@ -33,7 +33,7 @@
               return buf;
           };
           image.baseUpload = function(imageBase64) {
-              var name =  new Date().valueOf() + '.png';
+              var name = new Date().valueOf() + '.png';
               var binary = image.fixBinary(atob(imageBase64));
               var blob = new Blob([binary], { type: 'image/png', name: name });
               blob.name = name;
@@ -43,13 +43,9 @@
           };
 
           image.defer = '';
-          image.takePhoto = function(index) {
+          image.takePhoto = function(index, options) {
               image.defer = $q.defer();
               try {
-                  var options = {
-                      "destinationType": Camera.DestinationType.DATA_URL,
-                      "sourceType": index
-                  };
                   navigator.camera.getPicture(image.successCallback, image.errorCallback, options);
               } catch (e) {
                   image.errorCallback();
@@ -74,19 +70,19 @@
               var options = {
                   quality: 75,
                   destinationType: Camera.DestinationType.DATA_URL,
-                  sourceType: Camera.PictureSourceType.CAMERA,
-                  allowEdit: true,
+                  sourceType: index,
                   encodingType: Camera.EncodingType.JPEG,
-                  targetWidth: 100,
-                  targetHeight: 100,
+                  targetWidth: 500,
+                  targetHeight: 500,
                   popoverOptions: CameraPopoverOptions,
-                  saveToPhotoAlbum: true
+                  saveToPhotoAlbum: true,
+                  correctOrientation: true
               }
-              image.takePhoto(index).then(function(blob) {
-                  $ionicLoading.show({ template: '<ion-spinner icon="crescent"></ion-spinner> Compiling' })
+              image.takePhoto(index, options).then(function(blob) {
+                  $ionicLoading.show({ template: 'Preparing' })
                   q.resolve(blob);
               }, function(err) {
-                console.log(err)
+                  console.log(err)
                   $ionicLoading.hide();
                   q.reject(err);
               });

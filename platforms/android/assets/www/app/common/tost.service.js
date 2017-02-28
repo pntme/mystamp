@@ -12,7 +12,7 @@
                     {
                       message: message,
                       duration: "short",
-                      position: position
+                      position: "center"
                     }
                   );
                 }else{

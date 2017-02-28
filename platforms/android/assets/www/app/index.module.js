@@ -5,6 +5,7 @@
         'ngStorage',
         'ngCordova',
         'ionic-material',
-        'pw.canvas-painter'
+        'pw.canvas-painter',
+        'ngImgCrop'
     ]);
 })();

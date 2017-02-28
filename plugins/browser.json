@@ -31,9 +31,6 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ionicframework.hashify805552"
         },
-        "cordova-plugin-x-socialsharing": {
-            "PACKAGE_NAME": "com.ionicframework.hashify805552"
-        },
         "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "com.ionicframework.hashify805552"
         },
@@ -44,6 +41,15 @@
             "PACKAGE_NAME": "com.ionicframework.hashify805552"
         },
         "cordova-instagram-plugin": {
+            "PACKAGE_NAME": "com.hashify.pr"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "com.hashify.pr"
+        },
+        "com.napolitano.cordova.plugin.intent": {
+            "PACKAGE_NAME": "com.hashify.pr"
+        },
+        "com.sebible.cordova.videosnapshot": {
             "PACKAGE_NAME": "com.hashify.pr"
         }
     },

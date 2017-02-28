@@ -2,7 +2,7 @@
     'use strict';
     angular.module('hash').controller('viewPhotoCtrl', viewPhotoCtrl);
 
-    function viewPhotoCtrl(localStorageService, $state, $ionicPopup, $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal,  $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading, $ionicHistory) {
+    function viewPhotoCtrl(localStorageService, $state, $ionicPopup, $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading, $ionicHistory) {
         var self = this;
         var fileName;
         var hashWidth;
@@ -17,15 +17,20 @@
             $scope.image = selected.image;
             self.textOverlay = selected.sub;
         } else {
-                savedToMemory = false;
-                hashWidth = "80px impact";
-                $scope.MulImage = ["data:image/jpeg;base64," + Image1.binary];
+            savedToMemory = false;
+            hashWidth = "80px impact";
+            $scope.MulImage = ["data:image/jpeg;base64," + Image1.binary];
             for (var i = 0; i < $scope.MulImage.length; i++) {
                 createOverlay($scope.MulImage[i], 'image' + i);
             }
         }
 
+        // $scope.MulImage = ["assest/img/bg.png"];
+
+
         function createOverlay(image12, dynamicId) {
+            var signature = new Image();
+            signature.src = localStorageService.get("SelectedSign");
             $timeout(function() {
                 var canvas = document.getElementById(dynamicId);
                 var context = canvas.getContext('2d');
@@ -34,11 +39,16 @@
                 canvas.width = source.width;
                 canvas.height = source.height;
                 context.drawImage(source, 0, 0);
+                if (setting.IsSignature == true && localStorageService.get('SelectedSign'))
+                    context.drawImage(signature, 0, 0, 100, 100);
+
                 context.font = "100px impact";
                 var textWidth = context.measureText($scope.frase).width;
                 if (textWidth > canvas.offsetWidth) {
-                    context.font = hashWidth;
+                    context.font = "30px impact";
+
                 }
+
                 context.textAlign = 'right';
                 context.fillStyle = setting.hashtagColor;
                 if (setting.hashtagShadow === true) {
@@ -46,7 +56,8 @@
                     context.shadowBlur = 30;
                 }
 
-                context.fillText('#' + setting.hash, canvas.width - 20, canvas.height - 35);
+                context.fillText('#' + setting.hash, canvas.width - 10, canvas.height - 35);
+
                 var imgURI = canvas.toDataURL();
                 $timeout(function() {
                     TagedImages.push(imgURI);
@@ -152,9 +163,10 @@
             tost.notify('Make sure selected platform is installed in your device', 'top');
         }
 
-        self.OnSuccess = function() {
+        self.OnSuccess = function(success) {
+            console.log(success)
+            alert('Success')
             self.SaveData();
-            console.log('success');
         }
 
         $scope.showImages = function(index, pic) {
@@ -183,33 +195,43 @@
         });
 
 
-        document.addEventListener("deviceready", function() {
-            var count = 0;
-            $ionicPlatform.registerBackButtonAction(function() {
-                if (setting.keepHistory === true) {
-                    if (savedToMemory === false) {
-                        var confirmPopup = $ionicPopup.confirm({
-                            title: 'Warning',
-                            template: 'Do you want to save this media ?',
-                            cancelText: 'Discard',
-                            okText: 'Keep'
-                        });
+        // document.addEventListener("deviceready", function() {
+        //     var count = 0;
+        //     $ionicPlatform.registerBackButtonAction(function() {
+        //         if (setting.keepHistory === true) {
+        //             if (savedToMemory === false) {
+        //                 var confirmPopup = $ionicPopup.confirm({
+        //                     title: 'Warning',
+        //                     template: 'Do you want to save this media ?',
+        //                     cancelText: 'Discard',
+        //                     okText: 'Keep'
+        //                 });
 
-                        confirmPopup.then(function(res) {
-                            if (res) {
-                                self.SaveData();
-                                $state.go('tab.chats');
-                            } else {
-                                $state.go('tab.dash');
-                            }
-                        });
-                    } else {
-                        $state.go('tab.chats');
-                    }
-                } else {
-                    $state.go('tab.chats');
-                }
-            }, 100);
-        });
+        //                 confirmPopup.then(function(res) {
+        //                     if (res) {
+        //                         self.SaveData();
+        //                         $state.go('tab.chats');
+        //                     } else {
+        //                         $state.go('tab.dash');
+        //                     }
+        //                 });
+        //             } else {
+        //                 $state.go('tab.chats');
+        //             }
+        //         } else {
+        //             $state.go('tab.chats');
+        //         }
+        //     }, 100);
+        // });
+
+
+        $scope.StartSign = function() {
+            console.log('jjj')
+            $scope.signatureStarted = true;
+        }
+
+        $scope.SignatureFinished = function() {
+            $scope.signatureStarted = false;
+        }
     }
 })();

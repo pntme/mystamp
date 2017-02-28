@@ -10,6 +10,9 @@
         self.setting = localStorageService.get('setting');
         self.done = function() {
             localStorageService.set('setting', self.setting);
+                if(self.setting.IsSignature == true && !localStorageService.get('SelectedSign'))
+                    tost.notify('Please select a signature', 'center');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
         }
 
         self.reset = function() {
@@ -54,9 +57,6 @@
                 if ($scope.image == 'data:,') {
                     return self.showHash();
                 }
-                // console.log($scope.image)
-
-
                 $ionicModal.fromTemplateUrl("app/home/preview.html", {
                     scope: $scope
                 }).then(function(modal) {
@@ -68,7 +68,47 @@
 
         }
 
+        self.openSignature = function() {
+            $ionicModal.fromTemplateUrl("app/home/signature.html", {
+                scope: $scope
+            }).then(function(modal) {
+                db.getAllClips().then(function(res) {
+                    if (res.length > 0) {
+                        $scope.signatures = res;
+                        $scope.signatue = modal;
+                        $scope.signatue.show();
+                    }else{
+                        tost.notify('Signatre not found, Draw a signature first', 'top');
+                        $state.go('tab.clips');
+                    }
+                });
 
-      
+                $ionicLoading.hide();
+            });
+        }
+
+
+        $scope.signaturecloseModal = function() {
+            $scope.signatue.hide();
+            $scope.signatue.remove();
+        }
+
+
+        $scope.SelectSignature = function(data) {
+            localStorageService.set('SelectedSign', data.nativeURL);
+            for (var i = 0; i < $scope.signatures.length; i++) {
+                if (data.nativeURL === $scope.signatures[i].nativeURL)
+                    $scope.signatures[i].selected = 'SignatureSelected';
+                else
+                    $scope.signatures[i].selected = '';
+
+            }
+        }
+
+        $scope.go = function(){
+             $scope.signaturecloseModal();
+            $state.go('tab.clips');
+        }
+
     }
 })();

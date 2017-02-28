@@ -1,13 +1,31 @@
-    <ion-view view-title="Action">
-      <ion-content>
-        <br><br>
-        <a class="item" style="padding: 7px; border:none; margin: 0 auto;">
-          <ion-scroll direction="x">
-            <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" />
-             <canvas ng-repeat="image in MulImage track by $index" id="{{'image'+$index}}" style="display: none;"></canvas>
-          </ion-scroll>
-        </a>
+<ion-view view-title="Action">
+ <!--    <button class="button back-button hide buttons no-text button-clear header-item viewPhotoButton" ng-if="!signatureStarted" ng-click="StartSign();"><span class="back-text"><span class="default-title">Sign</span><span class="previous-title hide"></span></span>
+    </button>
+    <button class="button back-button hide buttons no-text button-clear header-item DoneButton" ng-if="signatureStarted" ng-click="SignatureFinished()"><span class="back-text"><span class="default-title">DONE</span><span class="previous-title hide"></span>
+    </button> -->
+    <ion-content scroll="true">
+        <!--  <br><br> -->
+      <!--   <div ng-if="signatureStarted">
+            <div class="range">
+                <input type="range" name="volume" min="1" max="50" ng-model="clip.selectedLineWidth"> {{clip.selectedLineWidth}}
+            </div>
+            <br/>
+            <div class="row">
+                <div pw-color-selector="['#000', '#9CB199', '#CF3759', '#485247', '#E77547', '#D38E47', '#0A6A74', '#153974']" color="selectedColor" class="colorSelecter"></div>
+            </div>
+        </div> -->
 
+
+
+
+       <!--  <div pw-canvas version="version" options="{undo: true, width: MyWidth, height: MyHeight, color: selectedColor, lineWidth: selectedLineWidth}"></div>
+ -->
+
+
+        <a class="item" style="padding: 0px; border:none; margin: 0 auto;">
+            <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" />
+            <canvas ng-repeat="image in MulImage track by $index" id="{{'image'+$index}}" style="display: none;"></canvas>
+        </a>
         <form name="twForm">
             <div style="    height: 15px;
     margin-left: 16px;">
@@ -24,5 +42,5 @@
                 </button>
             </div>
         </form>
-      </ion-content>   
+    </ion-content>
 </ion-view>

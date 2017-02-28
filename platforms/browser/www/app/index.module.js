@@ -4,6 +4,7 @@
         'ionic',
         'ngStorage',
         'ngCordova',
-        'ionic-material'
+        'ionic-material',
+        'pw.canvas-painter'
     ]);
 })();

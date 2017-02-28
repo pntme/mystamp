@@ -9,80 +9,96 @@
         <div class="item item-input-inset">
             <i class="icon ion-calendar " style="font-size: 30px;"></i>
             <label class="item-input-wrapper" style="background: #fff;">
-                <input type="text" placeholder="Event name" style="width: 100%; padding-left: 12px;" ng-model='home.setting.title' ng-blur="home.done()">
+                <input type="text" placeholder="Event name" style="width: 100%; padding-left: 12px; font-family: impact;" ng-model='home.setting.title' ng-blur="home.done(); home.typingStartedTitle = false; home.typingStartedhash = false;" ng-change="home.typingStartedTitle=true;" ng-focus=" home.typingStartedTitle = true;">
             </label>
+        </div>
+        <div class="dropdown-content" ng-if="home.typingStartedTitle === true">
+            <a ng-repeat="i in home.suggestions | filter: home.setting.title: home.startWith | unique: 'title'" ng-click="home.setting.title=i.title; home.typingStartedTitle=false; home.setting.hash=i.hash; home.typingStartedHash = false">{{i.title}}</a>
         </div>
         <div class="item item-input-inset item-icon-left item-icon-right">
             <img src="assest/img/hashtag.png" class="icon" style="height: 27px;margin-top: 13px;margin-left: 7px;">
             <label class="item-input-wrapper" style="background: #fff;">
-                <input type="text" placeholder="Enter hashtag without Hash symbol" style="width: 100%; padding-left: 37px;" ng-model="home.setting.hash" ng-blur="home.done()">
+                <input type="text" placeholder="Enter hashtag without Hash symbol" style="width: 100%; padding-left: 37px; font-family: impact; " ng-model="home.setting.hash" ng-blur="home.done(); home.typingStartedHash = false;  home.typingStartedTitle = false;" ng-change="home.typingStartedHash=true;" ng-focus=" home.typingStartedHash = true;">
             </label>
         </div>
-        <div class="item item-divider" style="border: none;" ng-click="showHash();">
+        <div class="dropdown-content" ng-if="home.typingStartedHash === true">
+            <a href="#" ng-repeat="i in home.suggestions  | filter: home.setting.hash: home.startWith" ng-click="home.setting.hash=i.hash; home.typingStartedHash=false;">{{i.hash}}</a>
+        </div>
+        <div class="item item-divider " style="border: none; " ng-click="showHash(); ">
             Tools
         </div>
-        <li class="item item-select item-icon-left">
-            <i class="icon  ion-arrow-expand"></i>
-            <span style="font-size: 14px; color: rgb(0,0,0);">Sharing Platform</span>
-            <select ng-model="home.setting.sharingPlatform" ng-change="home.done();">
-                <option ng-repeat="(key, value) in home.platforms track by $index" value="{{key}}">{{value}}</option>
+        <li class="item item-select item-icon-left ">
+            <i class="icon ion-arrow-expand "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Sharing Platform</span>
+            <select ng-model="home.setting.sharingPlatform " ng-change="home.done(); ">
+                <option ng-repeat="(key, value) in home.platforms track by $index " value="{{key}} ">{{value}}</option>
             </select>
         </li>
-        <li class="item item-select item-icon-left">
-            <i class="icon  ion-paintbucket"></i>
-            <span style="font-size: 14px; color: rgb(0,0,0);">Hashtag color</span>
-            <select ng-model="home.setting.hashtagColor" ng-change="home.done();">
-                <option ng-repeat="(key, value) in home.cssColor track by $index" ng-style="{'color': value}" value="{{value}}">{{key}}</option>
+        <li class="item item-select item-icon-left ">
+            <i class="icon ion-paintbucket "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Hashtag color</span>
+            <select ng-model="home.setting.hashtagColor " ng-change="home.done(); ">
+                <option ng-repeat="(key, value) in home.cssColor track by $index " ng-style="{ 'color': value} " value="{{value}} ">{{key}}</option>
             </select>
         </li>
-        <li class="item item-toggle item-icon-left">
-            <i class="icon  ion-android-done-all"></i>
-            <span style="font-size: 14px; color: rgb(0,0,0);">Hashtag shadow</span>
-            <label class="toggle toggle-positive">
-                <input type="checkbox" ng-model="home.setting.hashtagShadow" ng-change="home.done();">
-                <div class="track">
-                    <div class="handle"></div>
+        <li class="item item-toggle item-icon-left ">
+            <i class="icon ion-android-done-all "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Hashtag shadow</span>
+            <label class="toggle toggle-positive ">
+                <input type="checkbox " ng-model="home.setting.hashtagShadow " ng-change="home.done(); ">
+                <div class="track ">
+                    <div class="handle "></div>
                 </div>
             </label>
         </li>
-        <li class="item item-select item-icon-left">
-            <i class="icon ion-ios-color-wand"></i>
-            <span style="font-size: 14px; color: rgb(0,0,0);">Shadow color</span>
-            <select ng-model="home.setting.shadowColor" ng-change="home.done();">
-                <option ng-repeat="(key, value) in home.cssColor track by $index" ng-style="{'color': value}" value="{{value}}">{{key}}</option>
+        <li class="item item-select item-icon-left ">
+            <i class="icon ion-ios-color-wand "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Shadow color</span>
+            <select ng-model="home.setting.shadowColor " ng-change="home.done(); ">
+                <option ng-repeat="(key, value) in home.cssColor track by $index " ng-style="{ 'color': value} " value="{{value}} ">{{key}}</option>
             </select>
         </li>
-        <li class="item item-icon-right item-icon-left" ng-click="home.openSignature();">
-            <i class="icon  ion-edit"></i>
-            <span style="font-size: 14px; color: rgb(0,0,0);">Select Signature</span>
-          <i class="icon ion-ios-arrow-right"></i>
-        </li>
-        <li class="item item-toggle item-icon-left">
-            <i class="icon  ion-clock"></i>
-            <span style="font-size: 14px; color: rgb(0,0,0);">Keep History</span>
-            <label class="toggle toggle-positive">
-                <input type="checkbox" ng-model="home.setting.keepHistory" ng-change="home.done();">
-                <div class="track">
-                    <div class="handle"></div>
+        <!--       <li class="item item-toggle item-icon-left ">
+            <i class="icon ion-clipboard "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Embed signature</span>
+            <label class="toggle toggle-positive ">
+                <input type="checkbox " ng-model="home.setting.IsSignature " ng-change="home.done(); ">
+                <div class="track ">
+                    <div class="handle "></div>
                 </div>
             </label>
         </li>
-        <!--    <li class="item item-toggle item-icon-left">
-            <i class="icon  ion-ios-photos"></i>
-            <span style="font-size: 14px; color: rgb(0,0,0);">Keep unused media</span>
-            <label class="toggle toggle-positive">
-                <input type="checkbox" ng-model="home.setting.keepUnusedMedia" ng-change="home.done();">
-                <div class="track">
-                    <div class="handle"></div>
+        <li class="item item-icon-right item-icon-left " ng-click="home.openSignature(); " ng-if="home.setting.IsSignature ">
+            <i class="icon ion-edit "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Select Signature</span>
+            <i class="icon ion-ios-arrow-right "></i>
+        </li> -->
+        <li class="item item-toggle item-icon-left ">
+            <i class="icon ion-clock "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Keep History</span>
+            <label class="toggle toggle-positive ">
+                <input type="checkbox " ng-model="home.setting.keepHistory " ng-change="home.done(); ">
+                <div class="track ">
+                    <div class="handle "></div>
+                </div>
+            </label>
+        </li>
+        <!--    <li class="item item-toggle item-icon-left ">
+            <i class="icon ion-ios-photos "></i>
+            <span style="font-size: 14px; color: rgb(0,0,0); ">Keep unused media</span>
+            <label class="toggle toggle-positive ">
+                <input type="checkbox " ng-model="home.setting.keepUnusedMedia " ng-change="home.done(); ">
+                <div class="track ">
+                    <div class="handle "></div>
                 </div>
             </label>
         </li> -->
-        <a class="item item-icon-left item-icon-right" ng-click="home.showHash()">
-            <i class="icon ion-ios-eye"></i> Preview hash
-            <i class="icon ion-ios-arrow-right"></i>
+        <a class="item item-icon-left item-icon-right " ng-click="home.showHash() ">
+            <i class="icon ion-ios-eye "></i> Preview hash
+            <i class="icon ion-ios-arrow-right "></i>
         </a>
-        <a class="item item-icon-left" ng-click="home.reset()">
-            <i class="icon ion-arrow-return-left"></i> Use default settings
+        <a class="item item-icon-left " ng-click="home.reset() ">
+            <i class="icon ion-arrow-return-left "></i> Use default settings
         </a>
     </div>
 </ion-content>

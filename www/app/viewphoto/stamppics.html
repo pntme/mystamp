@@ -1,0 +1,8 @@
+<div class="modal image-modal transparent">
+    <button class="button button-small stamp-button" ng-click="CaptureStamps()" style="    background-color: #0D47A1; font-size: 13px;">Capture</button>
+    <ion-content scroll="true">
+        <div style="margin-top: 50px; margin-left: 28px;">
+            <img ng-src='{{img.nativeURL}}' class="StampPics" ng-repeat="img in Stamps_Pics track by $index" ng-click="Select(img)" id="NativeImage">
+        </div>
+    </ion-content>
+</div>

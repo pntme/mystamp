@@ -276,14 +276,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
-        "id": "cordova-plugin-x-socialsharing.SocialSharing",
-        "pluginId": "cordova-plugin-x-socialsharing",
-        "clobbers": [
-            "window.plugins.socialsharing"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
         "id": "cordova-plugin-x-toast.Toast",
         "pluginId": "cordova-plugin-x-toast",
@@ -328,6 +320,22 @@ module.exports = [
         "clobbers": [
             "Instagram"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+        "id": "cordova-plugin-x-socialsharing.SocialSharing",
+        "pluginId": "cordova-plugin-x-socialsharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
+    },
+    {
+        "file": "plugins/com.sebible.cordova.videosnapshot/www/VideoSnapshot.js",
+        "id": "com.sebible.cordova.videosnapshot.VideoSnapshot",
+        "pluginId": "com.sebible.cordova.videosnapshot",
+        "clobbers": [
+            "sebible.videosnapshot"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -342,12 +350,14 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.1",
     "cordova-plugin-statusbar": "2.2.1",
     "cordova-plugin-whitelist": "1.3.1",
-    "cordova-plugin-x-socialsharing": "5.1.3",
     "cordova-plugin-x-toast": "2.5.2",
     "cordova-sqlite-storage": "1.5.2",
     "ionic-plugin-keyboard": "2.2.1",
     "com.verso.cordova.clipboard": "0.1.0",
-    "cordova-instagram-plugin": "0.5.4"
+    "cordova-instagram-plugin": "0.5.4",
+    "cordova-plugin-x-socialsharing": "5.1.6",
+    "com.napolitano.cordova.plugin.intent": "0.1.3",
+    "com.sebible.cordova.videosnapshot": "0.2.9"
 }
 // BOTTOM OF METADATA
 });

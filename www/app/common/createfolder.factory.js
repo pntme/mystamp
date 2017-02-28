@@ -4,13 +4,13 @@
 
     function createfolder(localStorageService, $cordovaFile, $q) {
         var service = {};
-        service.create = function() {
+        var self = this;
+        service.create = function(Folder) {
             document.addEventListener("deviceready", function() {
-                var folderName = 'Mystamp';
+                var folderName = Folder;
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
                 function fileSystemSuccess(fileSystem) {
-                    console.log(fileSystem)
                     var download_link = encodeURI(URL);
                     var directoryEntry = fileSystem.root;
                     directoryEntry.getDirectory(folderName, {
@@ -33,10 +33,11 @@
             });
         }
 
-        service.savePicture = function(name, blob) {
+        service.savePicture = function(name, blob, location) {
             var q = $q.defer();
-            $cordovaFile.writeFile("file:///storage/emulated/0/Mystamp/", name, blob, true)
+            $cordovaFile.writeFile(location, name, blob, true)
                 .then(function(success) {
+                    success.NativeFileURL = location+name;
                     q.resolve(success);
                 }, function(error) {
                     alert("Error 403, Insufficient permissions");

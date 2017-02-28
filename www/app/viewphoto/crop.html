@@ -1,0 +1,12 @@
+<div class="modal image-modal">
+    <button class="button button-small stamp-button" ng-click="done()" style="    background-color: #0D47A1; font-size: 13px;">DONE</button>
+    <ion-content scroll="true">
+        <div class="cropArea">
+            <img-crop image="myImage" result-image="myCroppedImage" area-type="square"></img-crop>
+        </div>
+        <div class="item item-divider" style="border: none; " ng-click="showHash(); ">
+            Result
+        </div>
+        <div><img ng-src="{{myCroppedImage}}" style="margin-left: 10px;" id="result" /></div>
+    </ion-content>
+</div>

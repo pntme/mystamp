@@ -1,8 +1,9 @@
 (function() {
     angular.module('hash')
-        .run(function($ionicPlatform, db, createfolder) {
+        .run(function($ionicPlatform, db, createfolder, localStorageService) {
             $ionicPlatform.ready(function() {
-                createfolder.create();
+                createfolder.create("Mystamp");
+                createfolder.create("Stamps");
                 db.CreateDb();
                 if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -12,6 +13,10 @@
                     // org.apache.cordova.statusbar required
                     StatusBar.styleDefault();
                 }
+             
+                var HashSuggestions = localStorageService.get('HashSuggestions');
+                if(!HashSuggestions)               
+                    localStorageService.set('HashSuggestions',[{title: 'MyStamp', hash: 'TakenByMyStamp' }]);
             });
-        })
+        });
 })();

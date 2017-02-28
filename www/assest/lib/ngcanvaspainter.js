@@ -70,20 +70,47 @@
                         top: 0,
                         left: 0
                     }), n.find("div").append(u), n.find("div").append(d);
+                    var BgImage = new Image();
+                    BgImage.src = "assest/img/bg.png";
                     var p = u.getContext("2d"),
                         h = d.getContext("2d"),
-                        v = {
+
+
+                        image = new Image();
+                        image.src = 'assest/img/bg.png'; 
+   
+                    console.log(image)
+                    p.drawImage(image, 0, 0);
+
+
+
+
+
+
+
+
+
+                   var v = {
                             x: 0,
                             y: 0
                         },
                         f = [];
-                    u.width = d.width = c.width, u.height = d.height = c.height, p.fillStyle = c.backgroundColor, p.fillRect(0, 0, u.width, u.height), h.globalAlpha = c.opacity, h.lineJoin = h.lineCap = "round", h.lineWidth = 10, h.strokeStyle = c.color, t.$watch("options.lineWidth", function(e) {
-                        "string" == typeof e && (e = parseInt(e, 10)), e && "number" == typeof e && (h.lineWidth = c.lineWidth = e)
-                    }), t.$watch("options.color", function(e) {
-                        e && (h.strokeStyle = h.fillStyle = e)
-                    }), t.$watch("options.opacity", function(e) {
-                        e && (h.globalAlpha = e)
-                    });
+                    u.width = d.width = c.width,
+                        u.height = d.height = c.height,
+                        p.fillStyle = c.backgroundColor,
+                        p.fillRect(0, 0, u.width, u.height),
+                        h.globalAlpha = c.opacity,
+                        h.lineJoin = h.lineCap = "round",
+                        h.lineWidth = 10,
+                        h.strokeStyle = c.color,
+
+                        t.$watch("options.lineWidth", function(e) {
+                            "string" == typeof e && (e = parseInt(e, 10)), e && "number" == typeof e && (h.lineWidth = c.lineWidth = e)
+                        }), t.$watch("options.color", function(e) {
+                            e && (h.strokeStyle = h.fillStyle = e)
+                        }), t.$watch("options.opacity", function(e) {
+                            e && (h.globalAlpha = e)
+                        });
                     var m = function(e) {
                             var t = 0,
                                 n = 0;

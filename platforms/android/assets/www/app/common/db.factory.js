@@ -13,23 +13,38 @@
             db.transaction(function(tx) {
                 tx.executeSql('CREATE TABLE IF NOT EXISTS records (title, tweet, image, date)');
             }, function(error) {
-                console.log('Transaction ERROR: ' + error.message);
+                //console.log('Transaction ERROR: ' + error.message);
             }, function() {
-                console.log('Populated database OK');
+                //console.log('Populated database OK');
             });
 
             return defer.promise;
         }
 
         f.InsertDb = function(title, tweet, image) {
-            var date = new Date().valueOf()
-            db.transaction(function(tx) {
-                tx.executeSql('INSERT INTO records (title, tweet, image, date) VALUES (?, ?, ?, ?)', [title, tweet, image, date]);
-            }, function(error) {
-                console.log('error', error);
-            }, function() {
-                console.log('insertion done');
+            f.GetData().then(function(data) {
+                var SavedData = localStorageService.get('Storage');
+                var MilGaya = 0;
+                for (var i = 0; i < SavedData.length; i++) {
+                    if (SavedData[i].title === title && SavedData[i].image == image) {
+                        MilGaya = 1;
+                    }
+                }
+
+                if (MilGaya === 0) {
+                    var date = new Date().valueOf();
+                    db.transaction(function(tx) {
+                        tx.executeSql('INSERT INTO records (title, tweet, image, date) VALUES (?, ?, ?, ?)', [title, tweet, image, date]);
+                    }, function(error) {
+                        //console.log('error', error);
+                    }, function() {
+                        // //console.log('insertion done');
+                    });
+
+                }
+
             });
+
         }
 
         f.GetData = function() {
@@ -45,11 +60,13 @@
                     }
                     finalData.push(obj);
                 }
+
+                finalData.reverse();
+                //console.log(finalData)
                 localStorageService.set('Storage', finalData);
-                console.log(finalData)
                 defer.resolve(finalData);
             }, function(error) {
-                console.log('SELECT SQL statement ERROR: ' + error.message);
+                //console.log('SELECT SQL statement ERROR: ' + error.message);
                 defer.reject(error);
             });
 
@@ -67,9 +84,9 @@
 
         f.deleteData = function(data) {
             db.executeSql('DELETE FROM records WHERE date = ?', [data], function(rs) {
-                console.log(rs)
+                //console.log(rs)
             }, function(error) {
-                console.log('SELECT SQL statement ERROR: ' + error.message);
+                //console.log('SELECT SQL statement ERROR: ' + error.message);
 
             });
         }
@@ -80,11 +97,11 @@
             window.resolveLocalFileSystemURL(path, function(dir) {
                 dir.getFile(filename, { create: false }, function(fileEntry) {
                     fileEntry.remove(function() {
-                        console.log('succcess')
-                            // The file has been removed succesfully
+                        //console.log('succcess')
+                        // The file has been removed succesfully
                     }, function(error) {
-                        console.log(error)
-                            // Error deleting the file
+                        //console.log(error)
+                        // Error deleting the file
                     }, function() {
                         // The file doesn't exist
                     });
@@ -93,13 +110,13 @@
 
         }
 
-        f.getAllClips = function() {
-            console.log('j')
-             var defer = $q.defer();
-            var path = "file:///storage/emulated/0/Mystamp/";
+        f.getAllClips = function(location) {
+            var defer = $q.defer();
+            var path = location;
             window.resolveLocalFileSystemURL(path, function(fileSystem) {
                 var directoryReader = fileSystem.createReader();
                 directoryReader.readEntries(function(entries) {
+                    entries.reverse();
                     defer.resolve(entries);
                 }, function(error) {
                     defer.reject(error);

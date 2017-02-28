@@ -2,14 +2,16 @@
     'use strict';
     angular.module('hash').controller('viewPhotoCtrl', viewPhotoCtrl);
 
-    function viewPhotoCtrl(localStorageService, $state, $ionicPopup, $ionicPlatform, ShareService, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading, $ionicHistory) {
+    function viewPhotoCtrl(localStorageService, $location, $anchorScroll, createfolder, $state, $ionicPopup, $ionicPlatform, db, tost, $cordovaInstagram, $ionicActionSheet, $ionicModal, $cordovaFile, Image1, $stateParams, $cordovaFileTransfer, $cordovaSocialSharing, $scope, $timeout, $rootScope, $ionicLoading, $ionicHistory) {
         var self = this;
         var fileName;
         var hashWidth;
+        $scope.shareclicked = false;
         var setting = localStorageService.get('setting')
         $scope.zoomMin = 1;
         var savedToMemory = false;
         var TagedImages = [];
+
         if ($stateParams.id) {
             savedToMemory = true;
             var selected = db.GetDataById($stateParams.id);
@@ -25,7 +27,11 @@
             }
         }
 
+        // $scope.MulImage = ["assest/img/bg.png"];
+
         function createOverlay(image12, dynamicId) {
+            var signature = new Image();
+            signature.src = localStorageService.get("SelectedSign");
             $timeout(function() {
                 var canvas = document.getElementById(dynamicId);
                 var context = canvas.getContext('2d');
@@ -33,14 +39,18 @@
                 source.src = image12;
                 canvas.width = source.width;
                 canvas.height = source.height;
+
                 context.drawImage(source, 0, 0);
+                if (setting.IsSignature == true && localStorageService.get('SelectedSign'))
+                    context.drawImage(signature, 0, 0, 100, 100);
+
                 context.font = "100px impact";
                 var textWidth = context.measureText($scope.frase).width;
-
                 if (textWidth > canvas.offsetWidth) {
-                    context.font = "80px impact";
-                    console.log("came")
+                    context.font = "40px impact";
+
                 }
+
                 context.textAlign = 'right';
                 context.fillStyle = setting.hashtagColor;
                 if (setting.hashtagShadow === true) {
@@ -48,7 +58,8 @@
                     context.shadowBlur = 30;
                 }
 
-                context.fillText('#' + setting.hash, canvas.width - 20, canvas.height - 35);
+                context.fillText('#' + setting.hash, canvas.width - 10, canvas.height - 35);
+
                 var imgURI = canvas.toDataURL();
                 $timeout(function() {
                     TagedImages.push(imgURI);
@@ -57,19 +68,22 @@
                         $ionicLoading.hide();
                     }
                     $scope.image = imgURI;
-                    imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
-                    var blob = Image1.baseUpload(imgURI);
-                    var name = new Date().valueOf() + '.png';
-                    $cordovaFile.writeFile(cordova.file.externalDataDirectory, name, blob, true)
-                        .then(function(success) {
-                            fileName = cordova.file.externalDataDirectory + name;
-                        }, function(error) {
-                            alert("Error 403, Insufficient permissions")
-                        });
-
+                    SaveData($scope.image);
                 }, 100);
             }, 1000);
         }
+
+        function SaveData(imgURI) {
+            imgURI = imgURI.replace(/^data:image\/[a-z]+;base64,/, "");
+            var blob = Image1.baseUpload(imgURI);
+            var name = new Date().valueOf() + '.png';
+            var location = 'file:///storage/emulated/0/Mystamp/';
+            createfolder.savePicture(name, blob, location).then(function(res) {
+                fileName = res.NativeFileURL;
+            });
+        }
+
+
 
         $scope.share = function() {
             if (setting.sharingPlatform === 'All') {
@@ -99,22 +113,17 @@
 
 
         function DoAction(counter) {
-
             switch (parseInt(counter)) {
                 case 0:
-                    console.log('twitter')
                     self.ViaTwitter();
                     break;
                 case 1:
-                    console.log('insta')
                     self.ViaInstagram();
                     break;
                 case 2:
-                    console.log('fb')
                     self.ViaFacebook();
                     break;
                 case 3:
-                    console.log('wa')
                     self.ViaWhatsapp();
                     break;
             }
@@ -129,12 +138,17 @@
         }
 
         self.ViaInstagram = function() {
-            $cordovaInstagram.share({ image: $scope.image, caption: self.textOverlay }).then(self.OnSuccess, self.OnError);
+            $cordovaInstagram.share({ image: $scope.image, caption: self.textOverlay }).then(self.OnSuccess, self.OnErrorInsta);
         }
 
         self.ViaFacebook = function() {
             $cordovaSocialSharing.shareViaFacebook(self.textOverlay, $scope.image).then(self.OnSuccess, self.OnError);
         }
+
+        self.OnErrorInsta = function() {
+            console.log('Insta eooro')
+        }
+
 
         self.SaveData = function() {
             if (setting.keepHistory === true) {
@@ -150,13 +164,12 @@
         }
 
         self.OnError = function(error) {
-            console.log(error)
             tost.notify('Make sure selected platform is installed in your device', 'top');
         }
 
-        self.OnSuccess = function() {
+        self.OnSuccess = function(success) {
+            tost.notify('Success');
             self.SaveData();
-            console.log('success');
         }
 
         $scope.showImages = function(index, pic) {
@@ -179,41 +192,41 @@
             $scope.modal.remove()
         };
 
+        $scope.StartSign = function() {
+            $scope.signatureStarted = true;
+        }
 
-        $ionicPlatform.registerBackButtonAction(function() {
-            console.log('clicked')
+        $scope.SignatureFinished = function() {
+            $scope.signatureStarted = false;
+        }
+
+        $scope.gotoAnchor = function(x) {
+            $scope.shareclicked = !$scope.shareclicked
+            var newHash = 'anchor' + x;
+            if ($location.hash() !== newHash) {
+                $location.hash(x);
+            } else {
+                $anchorScroll();
+            }
+        }
+
+        $scope.$on('StampSelected', function(event, args) {
+            var canvas = document.getElementById("image0");
+            var nativeImage = document.getElementById("NativeImage");
+            var ctx = canvas.getContext("2d");
+            var image = new Image();
+            image.src = args.data;
+            $timeout(function() {
+                ctx.globalAlpha = 0.9;
+                ctx.drawImage(image, canvas.width - 210, canvas.height - 280);
+                $scope.MulImage = [canvas.toDataURL()];
+                $scope.image = $scope.MulImage[0];
+                SaveData($scope.image);
+                $ionicLoading.hide();
+            });
+
+            console.log(args);
         });
-
-
-        document.addEventListener("deviceready", function() {
-            var count = 0;
-            $ionicPlatform.registerBackButtonAction(function() {
-                if (setting.keepHistory === true) {
-                    if (savedToMemory === false) {
-                        var confirmPopup = $ionicPopup.confirm({
-                            title: 'Warning',
-                            template: 'Do you want to save this media ?',
-                            cancelText: 'Discard',
-                            okText: 'Keep'
-                        });
-
-                        confirmPopup.then(function(res) {
-                            if (res) {
-                                self.SaveData();
-                                $state.go('tab.chats');
-                            } else {
-                                $state.go('tab.dash');
-                            }
-                        });
-                    } else {
-                        $state.go('tab.chats');
-                    }
-                } else {
-                    $state.go('tab.chats');
-                }
-            }, 100);
-        });
-
 
     }
 })();

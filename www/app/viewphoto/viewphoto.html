@@ -1,29 +1,30 @@
 <ion-view view-title="Action">
- 
+    <stamp></stamp>
+    <a class='button button-small stamp-button' ng-click="gotoAnchor('form');" style="left: 0px;" ng-if="!shareclicked">Share</a>
     <ion-content scroll="true">
-    
-        <!--  <br><br> -->
-        <a class="item" style="padding: 7px; border:none; margin: 0 auto;">
-        <ion-scroll direction="x">
-        <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" />
-        <canvas ng-repeat="image in MulImage track by $index" id="{{'image'+$index}}" style="display: none;"></canvas>
-        </ion-scroll>
+                <a class="item" style="padding: 0px; border:none; margin: 0 auto;" id="item">
+            <img ng-repeat="image in MulImage track by $index" ng-src="{{image}}" ng-click="showImages($index, image)" class="image-list-thumb" />
+            <canvas ng-repeat="image in MulImage track by $index" id="{{'image'+$index}}" style="display: none;"></canvas>
         </a>
-
-        <form name="twForm">
-            <div style="    height: 15px;
+        <form name="twForm" id="form">
+            <div ng-if="shareclicked">
+                <div style="    height: 15px;
     margin-left: 16px;">
-                <p style="color:red;" ng-show="twForm.tw.$invalid">Tweet should not exceed then 140 character</p>
-            </div>
-            <div class="list" style="border-bottom: 1px solid #eadfdf;">
-                <label class="item item-input">
-                    <textarea type="text" ng-model="view.textOverlay" placeholder="Enter description" style="background:transparent;" name="tw" ng-maxlength="140"></textarea>
-                </label>
-            </div>
-            <div class="row">
-                <button ng-click="share()" class="button button-full button-positive" ng-disabled="twForm.tw.$invalid">
-                    Share
-                </button>
+                    <p style="color:red;" ng-show="twForm.tw.$invalid">Tweet should not exceed then 140 character</p>
+                </div>
+                <div class="list" style="border-bottom: 1px solid #eadfdf;">
+                    <label class="item item-input">
+                        <textarea type="text" ng-model="view.textOverlay" placeholder="Enter description" style="background:transparent;" name="tw" ng-maxlength="140"></textarea>
+                    </label>
+                </div>
+                <div class="row">
+                    <button ng-click="share()" class="button button-block button-positive" ng-disabled="twForm.tw.$invalid" style="width: 49%;">
+                        Share
+                    </button>
+                    <button ng-click="gotoAnchor('item');" class="button button-block button-assertive" style="width: 49%; margin-left: 10px;">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </form>
     </ion-content>

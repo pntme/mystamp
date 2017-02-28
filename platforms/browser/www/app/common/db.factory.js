@@ -92,6 +92,24 @@
             });
 
         }
+
+        f.getAllClips = function() {
+            console.log('j')
+             var defer = $q.defer();
+            var path = "file:///storage/emulated/0/Mystamp/";
+            window.resolveLocalFileSystemURL(path, function(fileSystem) {
+                var directoryReader = fileSystem.createReader();
+                directoryReader.readEntries(function(entries) {
+                    defer.resolve(entries);
+                }, function(error) {
+                    defer.reject(error);
+                });
+            });
+            return defer.promise;
+        }
+
+
+
         return f;
     }
 })();

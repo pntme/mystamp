@@ -2,14 +2,18 @@
     'use strict'
     angular.module('hash').controller('homeCtrl', homeCtrl);
 
-    function homeCtrl(localStorageService, db, $ionicModal, CheckSetting, $localStorage, $state, tost, $scope, $timeout, $rootScope, $ionicLoading, configuration) {
+    function homeCtrl(localStorageService, createfolder, db, $ionicModal, CheckSetting, $localStorage, $state, tost, $scope, $timeout, $rootScope, $ionicLoading, configuration) {
         var self = this;
         CheckSetting.CheckDefault();
         self.cssColor = configuration.CssColors;
         self.platforms = configuration.platforms;
         self.setting = localStorageService.get('setting');
+        self.suggestions = localStorageService.get('HashSuggestions')
         self.done = function() {
+            CheckSetting.AddNewSuggestion(self.setting);
             localStorageService.set('setting', self.setting);
+            tost.notify("Setting saved", 'top');
+
         }
 
         self.reset = function() {
@@ -20,7 +24,7 @@
 
         $scope.closeModal = function() {
             $scope.modal.hide();
-            $scope.modal.remove()
+            $scope.modal.remove();
         };
         var startimg = "assest/img/bg.png";
         $scope.image = startimg;
@@ -31,6 +35,7 @@
             var canvas = document.getElementById('tempCanvas');
             var context = canvas.getContext('2d');
             var source = new Image();
+
             source.src = startimg;
             canvas.width = source.width;
             canvas.height = source.height;
@@ -69,12 +74,13 @@
             $ionicModal.fromTemplateUrl("app/home/signature.html", {
                 scope: $scope
             }).then(function(modal) {
-                db.getAllClips().then(function(res) {
+                var location = "file:///storage/emulated/0/Mystamp/";
+                db.getAllClips(location).then(function(res) {
                     if (res.length > 0) {
                         $scope.signatures = res;
                         $scope.signatue = modal;
                         $scope.signatue.show();
-                    }else{
+                    } else {
                         tost.notify('Signatre not found, Draw a signature first', 'top');
                         $state.go('tab.clips');
                     }
@@ -101,6 +107,46 @@
 
             }
         }
+
+        $scope.go = function() {
+            $scope.signaturecloseModal();
+            $state.go('tab.clips');
+        }
+
+
+
+        var opts = {
+            quality: 80,
+            width: 200,
+            height: 100,
+            frames: 10,
+            timestamp: true, // add timestamping to frames
+            offset: -20 // start converting 20 seconds from the end
+        }
+
+
+
+        // $timeout(function() {
+        //     togif('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4', opts, function(blob) {
+        //         createfolder.savePicture('oo2o.gif', blob)
+        //         $scope.blob = blob;
+        //         // do sth with blob
+        //     });
+
+
+        // }, 10000);
+
+        // self.typingStarted = function() {
+           
+        // }
+
+
+        self.startWith = function(actual, expected) {
+            var lowerStr = (actual + "").toLowerCase();
+            return lowerStr.indexOf(expected.toLowerCase()) === 0;
+        }
+
+
 
     }
 })();

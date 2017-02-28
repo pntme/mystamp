@@ -33,7 +33,7 @@
               return buf;
           };
           image.baseUpload = function(imageBase64) {
-              var name =  new Date().valueOf() + '.png';
+              var name = new Date().valueOf() + '.png';
               var binary = image.fixBinary(atob(imageBase64));
               var blob = new Blob([binary], { type: 'image/png', name: name });
               blob.name = name;
@@ -43,13 +43,9 @@
           };
 
           image.defer = '';
-          image.takePhoto = function(index) {
+          image.takePhoto = function(index, options) {
               image.defer = $q.defer();
               try {
-                  var options = {
-                      "destinationType": Camera.DestinationType.DATA_URL,
-                      "sourceType": index
-                  };
                   navigator.camera.getPicture(image.successCallback, image.errorCallback, options);
               } catch (e) {
                   image.errorCallback();
@@ -65,28 +61,28 @@
           };
           image.errorCallback = function() {
               $ionicLoading.hide();
-              beersHelper.alert("Upload Image From Your Device Library", "No Photo Taken");
+              // beersHelper.alert("Upload Image From Your Device Library", "No Photo Taken");
               image.defer.reject("Camera Not Available");
           };
 
           image.takePhoto1 = function(index) {
               var q = $q.defer();
               var options = {
-                  quality: 75,
+                  quality: 100,
                   destinationType: Camera.DestinationType.DATA_URL,
-                  sourceType: Camera.PictureSourceType.CAMERA,
-                  allowEdit: true,
+                  sourceType: index,
                   encodingType: Camera.EncodingType.JPEG,
-                  targetWidth: 100,
-                  targetHeight: 100,
+                  targetWidth: 1024,
+                  targetHeight: 1024,
                   popoverOptions: CameraPopoverOptions,
-                  saveToPhotoAlbum: true
+                  saveToPhotoAlbum: true,
+                  correctOrientation: true
               }
-              image.takePhoto(index).then(function(blob) {
-                  $ionicLoading.show({ template: '<ion-spinner icon="crescent"></ion-spinner> Compiling' })
+              image.takePhoto(index, options).then(function(blob) {
+                  $ionicLoading.show({ template: 'Preparing' })
                   q.resolve(blob);
               }, function(err) {
-                console.log(err)
+                  console.log(err)
                   $ionicLoading.hide();
                   q.reject(err);
               });
@@ -94,10 +90,8 @@
           };
 
           image.saveTOdb = function() {
-              console.log('started')
               $cordovaFile.writeFile(cordova.file.externalDataDirectory, 'new_pic.jpg', image.finalBlob, true)
                   .then(function(success) {
-                      console.log(success)
                   }, function(error) {
                       alert("errore nella creazione del report")
                   });

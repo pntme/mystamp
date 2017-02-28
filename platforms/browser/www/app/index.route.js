@@ -49,8 +49,20 @@
                         }
                     }
                 })
+                // .state('tab.clips', {
+                //     url: '/clips',
+                //     cache: false,
+                //     views: {
+                //         'tab-clips': {
+                //             templateUrl: 'app/clips/clips.html',
+                //             controller: 'clipCtrl',
+                //             controllerAs: 'clip'
+                //         }
+                //     }
+                // })
                 .state('tab.chat-detail', {
                     url: '/chats/:chatId',
+                    cache: false,
                     views: {
                         'tab-chats': {
                             templateUrl: 'app/history/detail.html',
